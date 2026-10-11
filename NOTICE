@@ -1,0 +1,34 @@
+VisionFlow AI — WIUT Hackathon 2026
+
+Copyright (C) 2026 Mukhammadiev Samandar Shavkatovich
+Copyright (C) 2026 Raximov Doniyorbek Mehriddinovich
+Copyright (C) 2026 Muxiddinov Shohruxxo'ja Usmonxo'ja O'gli
+
+These notices identify the copyright holders supplied by the project owner for
+original team-authored contributions; they do not claim ownership of upstream
+code, model weights, training data, research papers, or third-party footage.
+
+Original team-authored software in this release is licensed under the GNU
+Affero General Public License, version 3 only (SPDX: AGPL-3.0-only). See LICENSE.
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU Affero General Public License as published by the Free
+Software Foundation, version 3 of the License.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for details.
+
+You should have received a copy of the GNU Affero General Public License along
+with this program. If not, see https://www.gnu.org/licenses/.
+
+Third-party works retain their original copyrights and licenses. In particular,
+Ultralytics software and YOLO11n weights remain subject to upstream AGPL-3.0;
+this notice does not relicense those works. See docs/LICENSES.md for separate
+software, model, footage and data notices, limitations, and source locations.
+
+Corresponding source for the deployed hackathon release will be offered at:
+https://github.com/samanwirst/visionflow-hackathon-2026-source/releases/download/hackathon-2026/visionflow-source.tar.gz
+The URL must be available without charge or authentication, with an archive
+matching the exact deployed, independently accepted implementation before a
+public service is started. This notice is not evidence that publication or a
+technical review has already occurred. Private Git history is not released.
