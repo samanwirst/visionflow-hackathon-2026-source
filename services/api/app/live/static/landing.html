@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Argus — Video Analytics</title>
+<link rel="icon" type="image/jpeg" href="/static/argus-logo.jpg" />
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<div class="topbar">
+  <img src="/static/argus-logo.jpg" alt="Argus logo" width="38" height="48" style="object-fit:contain;border-radius:5px" />
+  <h1>Argus</h1>
+  <span class="tag">Adaptive visual operations · video demo</span>
+  <span class="spacer"></span>
+  <span id="health" class="pill muted"><span class="dot"></span>checking…</span>
+</div>
+<div class="wrap">
+  <div class="card">
+    <h2>Choose how you want to connect</h2>
+    <p class="muted">
+      The <strong>operator</strong> uploads a pre-recorded video into a new private
+      room; a <strong>judge</strong> watches the analysed video and sets the AI
+      monitoring task in natural language. Both require the demo PIN. The operator
+      shares a one-time private join code with the judge.
+    </p>
+    <div class="choice">
+      <a href="/upload"><div class="box">
+        <div class="big">🎞️</div>
+        <h3>Upload Video</h3>
+        <p class="muted">Create a private room and upload an MP4 for real detection &amp; tracking.</p>
+      </div></a>
+      <a href="/judges"><div class="box">
+        <div class="big">🧑‍⚖️</div>
+        <h3>Judges</h3>
+        <p class="muted">Join the room, watch the analysed video, and create tasks in natural language.</p>
+      </div></a>
+    </div>
+  </div>
+  <div class="card">
+    <p class="muted" style="margin:0">
+      Consent notice: film only consenting participants and objects. No automatic raw
+      recording is kept — only short-lived event evidence frames. Semantic/temporal
+      judgments from the local VLM are uncalibrated and shown with uncertainty.
+    </p>
+  </div>
+</div>
+<script>
+fetch("/api/live/health").then(r=>r.json()).then(h=>{
+  const el = document.getElementById("health");
+  if (h.pin_configured) { el.className="pill ok"; el.innerHTML='<span class="dot"></span>ready'; }
+  else { el.className="pill danger"; el.innerHTML='<span class="dot"></span>PIN not configured'; }
+}).catch(()=>{});
+</script>
+</body>
+</html>

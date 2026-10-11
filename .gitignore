@@ -1,0 +1,33 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+
+# JavaScript / Next.js
+node_modules
+.next/
+out/
+coverage/
+*.tsbuildinfo
+
+# Python
+.venv
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Generated artifacts and local data
+dist/
+build/
+artifacts/
+data/
+models/
+*.pt
+*.log
+.agents/runtime/
+.DS_Store
+Thumbs.db

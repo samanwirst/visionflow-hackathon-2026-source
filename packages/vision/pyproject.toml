@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "visionflow-vision"
+version = "0.1.0"
+description = "VisionFlow AI vision pipeline: detection, tracking, zones, temporal events"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.setuptools.packages.find]
+include = ["visionflow_vision*"]

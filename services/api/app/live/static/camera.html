@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VisionFlow — Live Camera</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<div class="topbar">
+  <h1>VisionFlow · Camera</h1>
+  <span class="spacer"></span>
+  <a href="/" class="muted" style="font-size:13px">← home</a>
+</div>
+<div class="wrap">
+  <div id="banner" class="banner info hidden"></div>
+
+  <!-- step 1: auth -->
+  <div class="card" id="authCard">
+    <h2>1 · Enter demo PIN</h2>
+    <p class="muted">Authenticates this device as a camera. The PIN is set on the server.</p>
+    <label for="pin">Demo PIN</label>
+    <input id="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN" />
+    <div class="row" style="margin-top:12px"><button id="loginBtn">Continue</button></div>
+  </div>
+
+  <!-- step 2: consent + room -->
+  <div class="card hidden" id="roomCard">
+    <h2>2 · Create a private room</h2>
+    <p class="muted">
+      Consent: point the camera only at consenting people and objects. No raw video is stored;
+      only short-lived event evidence frames are kept.
+    </p>
+    <div class="row"><button id="createRoomBtn">Create room & get join code</button></div>
+    <div id="joinInfo" class="hidden" style="margin-top:14px">
+      <p>Share this one-time join code with the judge (say it out loud or type it on their device). It is not in any URL.</p>
+      <pre class="code" id="joinCode" style="font-size:22px;text-align:center"></pre>
+    </div>
+  </div>
+
+  <!-- step 3: stream -->
+  <div class="card hidden" id="streamCard">
+    <h2>3 · Live stream</h2>
+    <div class="metrics" style="margin-bottom:12px">
+      <div class="metric"><div class="k">Status</div><div class="v" id="mStatus">idle</div></div>
+      <div class="metric"><div class="k">Sent FPS</div><div class="v" id="mFps">—</div></div>
+      <div class="metric"><div class="k">Frame</div><div class="v" id="mSize">—</div></div>
+      <div class="metric"><div class="k">Sent</div><div class="v" id="mSent">0</div></div>
+    </div>
+    <video id="video" playsinline autoplay muted></video>
+    <canvas id="canvas" class="hidden"></canvas>
+    <div class="row" style="margin-top:12px">
+      <button id="startBtn">Start camera & stream</button>
+      <button id="stopBtn" class="secondary hidden">Stop</button>
+    </div>
+    <p class="muted" id="wakeNote" style="margin-top:10px"></p>
+  </div>
+</div>
+
+<script src="/static/common.js"></script>
+<script>
+const LONG_EDGE = 640;      // bounded capture long edge
+const TARGET_FPS = 4;       // 2-5 fps target
+const MAX_BYTES = 256*1024; // hard byte bound, mirrored on server
+
+let ws=null, stream=null, wakeLock=null, timer=null, seq=0, sent=0, fpsTimes=[];
+
+document.getElementById("loginBtn").onclick = async () => {
+  const pin = document.getElementById("pin").value;
+  try {
+    const me = await login("camera", pin);
+    setBanner("banner","info",`Authenticated as ${me.role}.`);
+    document.getElementById("authCard").classList.add("hidden");
+    document.getElementById("roomCard").classList.remove("hidden");
+  } catch(e){ setBanner("banner","err",e.message); }
+};
+
+document.getElementById("createRoomBtn").onclick = async () => {
+  try {
+    const r = await api("/api/live/rooms", { method:"POST", body:{} });
+    document.getElementById("joinCode").textContent = r.join_code;
+    document.getElementById("joinInfo").classList.remove("hidden");
+    document.getElementById("streamCard").classList.remove("hidden");
+  } catch(e){ setBanner("banner","err",e.message); }
+};
+
+document.getElementById("startBtn").onclick = startStreaming;
+document.getElementById("stopBtn").onclick = stopStreaming;
+
+async function startStreaming() {
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { ideal: "environment" }, width:{ideal:1280}, height:{ideal:720} },
+      audio: false,
+    });
+  } catch(e) {
+    setBanner("banner","err","Camera permission failed or no camera: "+e.message);
+    return;
+  }
+  const video = document.getElementById("video");
+  video.srcObject = stream;
+  await video.play().catch(()=>{});
+  try {
+    if ("wakeLock" in navigator) {
+      wakeLock = await navigator.wakeLock.request("screen");
+      document.getElementById("wakeNote").textContent =
+        "Screen wake lock active. If the phone still locks or the tab is backgrounded, the browser may pause capture.";
+    } else {
+      document.getElementById("wakeNote").textContent =
+        "Wake lock unsupported on this browser — keep the screen on manually; locking/backgrounding pauses capture.";
+    }
+  } catch { /* ignore */ }
+
+  openSocket();
+  document.getElementById("startBtn").classList.add("hidden");
+  document.getElementById("stopBtn").classList.remove("hidden");
+  document.getElementById("mStatus").textContent = "streaming";
+}
+
+function openSocket() {
+  ws = new WebSocket(wsUrl("/api/live/ws/camera"));
+  ws.binaryType = "arraybuffer";
+  ws.onopen = () => { timer = setInterval(captureAndSend, 1000/TARGET_FPS); };
+  ws.onclose = (ev) => {
+    clearInterval(timer); timer=null;
+    // Auth closes (expired/revoked session, bad origin/CSRF) must NOT reconnect in
+    // a loop — stop streaming and ask the user to re-authenticate (LIVE-002).
+    if (ev && (ev.code === 4401 || ev.code === 4403 || ev.code === 4404)) {
+      stopStreaming();
+      document.getElementById("mStatus").textContent = "session ended";
+      setBanner("banner","err","Session ended or revoked. Please sign in again.");
+      return;
+    }
+    document.getElementById("mStatus").textContent = "disconnected";
+    if (stream) { // auto-reconnect only on transient closes while still streaming
+      setTimeout(()=>{ if(stream){ document.getElementById("mStatus").textContent="reconnecting"; openSocket(); } }, 1500);
+    }
+  };
+  ws.onerror = () => { document.getElementById("mStatus").textContent = "error"; };
+}
+
+async function captureAndSend() {
+  const video = document.getElementById("video");
+  if (!ws || ws.readyState !== 1 || !video.videoWidth) return;
+  // Backpressure: if the socket buffer is backing up, skip this frame (drop stale).
+  if (ws.bufferedAmount > MAX_BYTES) return;
+  const vw = video.videoWidth, vh = video.videoHeight;
+  const scale = Math.min(1, LONG_EDGE / Math.max(vw, vh));
+  const w = Math.round(vw*scale), h = Math.round(vh*scale);
+  const canvas = document.getElementById("canvas");
+  canvas.width = w; canvas.height = h;
+  canvas.getContext("2d").drawImage(video, 0, 0, w, h);
+  let quality = 0.7;
+  let blob = await new Promise(res => canvas.toBlob(res, "image/jpeg", quality));
+  // Shrink quality until within the byte bound.
+  while (blob && blob.size > MAX_BYTES && quality > 0.3) {
+    quality -= 0.15;
+    blob = await new Promise(res => canvas.toBlob(res, "image/jpeg", quality));
+  }
+  if (!blob || blob.size > MAX_BYTES) return;
+  seq++;
+  ws.send(JSON.stringify({ seq, w, h, capture_ts: Date.now()/1000 }));
+  ws.send(await blob.arrayBuffer());
+  sent++;
+  const now = performance.now(); fpsTimes.push(now);
+  fpsTimes = fpsTimes.filter(t => now - t < 3000);
+  document.getElementById("mSent").textContent = sent;
+  document.getElementById("mSize").textContent = Math.round(blob.size/1024)+" KB";
+  if (fpsTimes.length > 1) {
+    const fps = (fpsTimes.length-1)/((fpsTimes[fpsTimes.length-1]-fpsTimes[0])/1000);
+    document.getElementById("mFps").textContent = fps.toFixed(1);
+  }
+}
+
+function stopStreaming() {
+  clearInterval(timer); timer=null;
+  if (ws) { const s=ws; ws=null; s.close(); }
+  if (stream) { stream.getTracks().forEach(t=>t.stop()); stream=null; }
+  if (wakeLock) { wakeLock.release().catch(()=>{}); wakeLock=null; }
+  document.getElementById("mStatus").textContent = "stopped";
+  document.getElementById("startBtn").classList.remove("hidden");
+  document.getElementById("stopBtn").classList.add("hidden");
+}
+
+// Re-acquire wake lock after tab visibility returns.
+document.addEventListener("visibilitychange", async () => {
+  if (document.visibilityState === "visible" && stream && "wakeLock" in navigator && !wakeLock) {
+    try { wakeLock = await navigator.wakeLock.request("screen"); } catch {}
+  }
+});
+</script>
+</body>
+</html>

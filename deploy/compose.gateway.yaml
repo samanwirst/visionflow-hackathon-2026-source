@@ -1,0 +1,22 @@
+# Local authenticated candidate only. Public tunnel activation needs approval.
+services:
+  web:
+    build:
+      args:
+        NEXT_PUBLIC_API_URL: "."
+  gateway:
+    image: nginx:1.28-alpine@sha256:a8b39bd9cf0f83869a2162827a0caf6137ddf759d50a171451b335cecc87d236
+    command: ["nginx", "-g", "daemon off;", "-c", "/etc/nginx/demo.conf"]
+    ports:
+      - "127.0.0.1:18088:8088"
+    volumes:
+      - ./nginx.conf:/etc/nginx/demo.conf:ro
+    secrets:
+      - demo_auth
+    depends_on:
+      - api
+      - web
+    restart: "no"
+secrets:
+  demo_auth:
+    file: ${VISIONFLOW_DEMO_AUTH_FILE:?Set an ignored local password hash file}

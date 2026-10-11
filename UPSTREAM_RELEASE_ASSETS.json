@@ -1,0 +1,73 @@
+{
+  "verified_upstream_downloads": [
+    {
+      "kind": "ultralytics_sdist_metadata",
+      "source_url": "https://pypi.org/pypi/ultralytics/8.4.175/json",
+      "http_status": 200,
+      "name": "ultralytics",
+      "version": "8.4.175",
+      "sdist": [
+        {
+          "filename": "ultralytics-8.4.175.tar.gz",
+          "url": "https://files.pythonhosted.org/packages/b6/00/02ad3551377db36068b9eef02e055d33c7f61c6817c1f1d364350aa9e27d/ultralytics-8.4.175.tar.gz",
+          "size": 1270777,
+          "digests": {
+            "blake2b_256": "b60002ad3551377db36068b9eef02e055d33c7f61c6817c1f1d364350aa9e27d",
+            "md5": "50fab0fbe7a841c4d2caa09813745b23",
+            "sha256": "3af729abd18170778ca4cef7c9bff96874fca8e1220995d9512d81ed010bbc84"
+          },
+          "packagetype": "sdist"
+        }
+      ],
+      "sdist_download_http_status": 200,
+      "sdist_bytes": 1270777,
+      "sdist_sha256": "3af729abd18170778ca4cef7c9bff96874fca8e1220995d9512d81ed010bbc84",
+      "sdist_pypi_digest_match": true
+    },
+    {
+      "kind": "yolo11n_weights",
+      "source_url": "https://github.com/ultralytics/assets/releases/download/v8.3.0/yolo11n.pt",
+      "http_status": 200,
+      "final_download_host": "release-assets.githubusercontent.com",
+      "bytes": 5613764,
+      "sha256": "0ebbc80d4a7680d14987a577cd21342b65ecfd94632bd9a8da63ae6417644ee1",
+      "matches_current_local_and_fallback_bytes": true
+    }
+  ],
+  "planned_separate_release_assets": [
+    {
+      "filename": "ultralytics-8.4.175.tar.gz",
+      "bytes": 1270777,
+      "sha256": "3af729abd18170778ca4cef7c9bff96874fca8e1220995d9512d81ed010bbc84",
+      "planned_public_mirror_url": "https://github.com/samanwirst/visionflow-hackathon-2026-source/releases/download/hackathon-2026/ultralytics-8.4.175.tar.gz",
+      "mirror_status": "NOT_PUBLISHED",
+      "license": "Upstream AGPL-3.0; team grant does not replace upstream copyright or license"
+    },
+    {
+      "filename": "ultralytics-8.4.175-LICENSE",
+      "bytes": 34523,
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+      "planned_public_mirror_url": "https://github.com/samanwirst/visionflow-hackathon-2026-source/releases/download/hackathon-2026/ultralytics-8.4.175-LICENSE",
+      "mirror_status": "NOT_PUBLISHED",
+      "license": "Upstream AGPL-3.0; team grant does not replace upstream copyright or license"
+    },
+    {
+      "filename": "yolo11n.pt",
+      "bytes": 5613764,
+      "sha256": "0ebbc80d4a7680d14987a577cd21342b65ecfd94632bd9a8da63ae6417644ee1",
+      "planned_public_mirror_url": "https://github.com/samanwirst/visionflow-hackathon-2026-source/releases/download/hackathon-2026/yolo11n.pt",
+      "mirror_status": "NOT_PUBLISHED",
+      "license": "Upstream AGPL-3.0; team grant does not replace upstream copyright or license"
+    },
+    {
+      "filename": "UPSTREAM_NOTICES.json",
+      "bytes": 767,
+      "sha256": "bd59ef47a870fe9bf908ab912cb1319a98c51908bcbed77bad9c860bc0fd31d4",
+      "planned_public_mirror_url": "https://github.com/samanwirst/visionflow-hackathon-2026-source/releases/download/hackathon-2026/UPSTREAM_NOTICES.json",
+      "mirror_status": "NOT_PUBLISHED",
+      "license": "Upstream AGPL-3.0; team grant does not replace upstream copyright or license"
+    }
+  ],
+  "source_archive_policy": "Source only. No binary weights, videos, caches or Student artifacts inside the source tarball. Separate unchanged upstream weights asset is explicitly authorized by controller.",
+  "publication_gate": "Exact technical PASS + controller authorization; all planned mirror URLs currently uncreated"
+}

@@ -1,65 +1,54 @@
 {
-  "assets": {
-    "UPSTREAM_NOTICES.json": {
-      "bytes": 767,
-      "sha256": "bd59ef47a870fe9bf908ab912cb1319a98c51908bcbed77bad9c860bc0fd31d4",
-      "url": "https://github.com/samanwirst/visionflow-hackathon-2026-source/releases/download/hackathon-2026/UPSTREAM_NOTICES.json"
-    },
-    "ultralytics-8.4.175-LICENSE": {
-      "bytes": 34523,
-      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
-      "url": "https://github.com/samanwirst/visionflow-hackathon-2026-source/releases/download/hackathon-2026/ultralytics-8.4.175-LICENSE"
-    },
-    "ultralytics-8.4.175.tar.gz": {
-      "bytes": 1270777,
-      "sha256": "3af729abd18170778ca4cef7c9bff96874fca8e1220995d9512d81ed010bbc84",
-      "url": "https://github.com/samanwirst/visionflow-hackathon-2026-source/releases/download/hackathon-2026/ultralytics-8.4.175.tar.gz"
-    },
-    "visionflow-source.tar.gz": {
-      "bytes": 390548,
-      "sha256": "9b3dfa6f59f7a7f26bf0d2e35f3c056ceb849900bf0ba7c30d7e43d5fed28882",
-      "url": "https://github.com/samanwirst/visionflow-hackathon-2026-source/releases/download/hackathon-2026/visionflow-source.tar.gz"
-    },
-    "visionflow-source.tar.gz.sha256": {
-      "bytes": 91,
-      "sha256": "cba83d856920743d2d32979b82cc1b2c2d37ddd4baf35925a1361ecb77d01494",
-      "url": "https://github.com/samanwirst/visionflow-hackathon-2026-source/releases/download/hackathon-2026/visionflow-source.tar.gz.sha256"
-    },
-    "yolo11n.pt": {
-      "bytes": 5613764,
-      "sha256": "0ebbc80d4a7680d14987a577cd21342b65ecfd94632bd9a8da63ae6417644ee1",
-      "url": "https://github.com/samanwirst/visionflow-hackathon-2026-source/releases/download/hackathon-2026/yolo11n.pt"
-    }
-  },
-  "excluded_data": "No credentials, user uploads, private videos, model caches or Student artifacts. Organizer material excluded for absent redistribution permission.",
-  "gates": {
-    "browser_e2e_pass": true,
-    "contributor_consent_all_three": true,
-    "frontend_build_pass": true,
-    "known_p1_regressions_pass": true,
-    "public_surface_checks_pass": true,
-    "real_yolo_smoke_pass": true,
-    "source_release_authorized": true,
-    "targeted_checks_pass": true
-  },
-  "implementation_source_commit": "f9d74f024d87a56ae66263dc1d9244a1049d9dc8",
-  "independent_review_verdict": "OWNER_WAIVED_INDEPENDENT_REVIEW",
-  "milestone_status": {
-    "M1": "ACCEPTED",
-    "M2": "BLOCKED",
-    "M3": "BLOCKED",
-    "Student_activation": "OFF"
-  },
+  "implementation_source_commit": "a0eb8f36d8e7f5feb0f61a7f3b7529fc15058533",
+  "source_url": "https://github.com/samanwirst/visionflow-hackathon-2026-source/releases/download/hackathon-2026-ui1/visionflow-source.tar.gz",
+  "source_archive_sha256": "cfaaf291c3bb59b1d1d3a0bc60b16f3a56c379dd4936b4baab3138621b91ef13",
   "original_code_license": "AGPL-3.0-only",
-  "owner_override_record_sha256": "5b9ee60576f57d31f7df210f893919089bf937e7e5a6ee2365c656654213ecbc",
-  "owner_override_reference": "owner-chat-2026-10-11-no-independent-reviews",
-  "owner_review_waiver_authorized": true,
-  "prior_independent_review": {
-    "source_commit": "f49bf098528fcdd0f42024cef30013c3791b6627",
-    "verdict": "CHANGES_REQUIRED"
+  "base_source_commit": "f9d74f024d87a56ae66263dc1d9244a1049d9dc8",
+  "backend_unchanged": true,
+  "ui_only_test_receipt": {
+    "timestamp_utc": "2026-10-11T07:45:17.880847+00:00",
+    "base_frozen_commit": "f9d74f024d87a56ae66263dc1d9244a1049d9dc8",
+    "patch_commit": "a0eb8f36d8e7f5feb0f61a7f3b7529fc15058533",
+    "isolated_branch": "ux/argus-planner-loading",
+    "modified_files": [
+      "README.md",
+      "services/api/app/live/static/demo.html",
+      "services/api/app/live/static/demo.js",
+      "tests/frontend/argus_single_visitor.cjs"
+    ],
+    "checks": [
+      {
+        "command": "node --check services/api/app/live/static/demo.js",
+        "exit_code": 0
+      },
+      {
+        "command": "node tests/frontend/argus_single_visitor.cjs",
+        "exit_code": 0,
+        "passed": 24,
+        "method": "simulated DOM and deferred HTTP responses; production JS executed"
+      },
+      {
+        "command": "git diff --check",
+        "exit_code": 0
+      },
+      {
+        "command": "bash -n on six README shell blocks",
+        "exit_code": 0,
+        "blocks": 6
+      }
+    ],
+    "provider_calls": 0,
+    "browser_test_executed": false,
+    "independent_review_executed": false,
+    "deployment_executed": false,
+    "publication_executed": false,
+    "prior_source_release_rewritten": false,
+    "source_offer_tag": "hackathon-2026-ui1",
+    "frozen_f9_checkout_modified": false,
+    "owner_requested_after_freeze": true,
+    "root_recorded_epoch": 1791704876.3904207,
+    "final_checks_evidence": "Agent actual final execution report: node syntax PASS, 24/24 frontend controls PASS, six README shell blocks bash syntax PASS, git diff --check PASS"
   },
-  "source_archive_sha256": "9b3dfa6f59f7a7f26bf0d2e35f3c056ceb849900bf0ba7c30d7e43d5fed28882",
-  "source_git_history_included": false,
-  "source_url": "https://github.com/samanwirst/visionflow-hackathon-2026-source/releases/download/hackathon-2026/visionflow-source.tar.gz",
-  "upstream_code_and_weights_license": "Upstream AGPL-3.0; original notices preserved, not relicensed by team"
+  "fresh_independent_review": "OWNER_WAIVED",
+  "private_history_included": false
 }

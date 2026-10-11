@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Argus — Judges</title>
+<link rel="icon" type="image/jpeg" href="/static/argus-logo.jpg" />
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<div class="topbar">
+  <img src="/static/argus-logo.jpg" alt="Argus logo" width="38" height="48" style="object-fit:contain;border-radius:5px" />
+  <h1>Argus · Judges</h1>
+  <span class="spacer"></span>
+  <span id="teacherPill" class="pill muted"><span class="dot"></span>VLM</span>
+  <a href="/" class="muted" style="font-size:13px;margin-left:10px">← home</a>
+</div>
+<div class="wrap">
+  <div id="banner" class="banner info hidden"></div>
+
+  <div class="card" id="authCard">
+    <h2>1 · Enter demo PIN & join the room</h2>
+    <label for="pin">Demo PIN</label>
+    <input id="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN" />
+    <label for="code">Private join code (from the operator)</label>
+    <input id="code" autocomplete="off" placeholder="join code" />
+    <div class="row" style="margin-top:12px"><button id="joinBtn">Join room</button></div>
+  </div>
+
+  <div class="hidden" id="main">
+    <div class="grid2">
+      <div class="card">
+        <h2>Processed video</h2>
+        <p class="muted">Annotated frames from the approved task, advanced on the source video clock.
+          A task being <em>enabled</em> does not mean a job is running.</p>
+        <img id="feed" class="feed" alt="annotated processed frame" />
+        <div id="jobInfo" class="muted" style="margin-top:8px">No processing yet.</div>
+        <details style="margin-top:8px">
+          <summary class="muted">Play / replay the approved source video</summary>
+          <video id="sourceVideo" class="feed" controls preload="none"
+                 style="width:100%;margin-top:8px;border-radius:8px"></video>
+        </details>
+        <div class="metrics" style="margin-top:12px">
+          <div class="metric"><div class="k">FPS (obs.)</div><div class="v" id="mFps">—</div></div>
+          <div class="metric"><div class="k">Inference</div><div class="v" id="mInf">—</div></div>
+          <div class="metric"><div class="k">Frame age</div><div class="v" id="mAge">—</div></div>
+          <div class="metric"><div class="k">Recv / Drop</div><div class="v" id="mRecv">—</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Create a monitoring task</h2>
+        <p class="muted">Describe what to watch in plain language. The AI planner proposes a validated task you review before it runs.</p>
+        <textarea id="prompt" placeholder="e.g. Notify me when a car enters the whole image; use a cooldown of 2.5 seconds"></textarea>
+        <div class="row" style="margin-top:10px">
+          <button id="planBtn">Plan task</button>
+          <span class="muted" id="planMeta"></span>
+        </div>
+        <div id="draft" class="hidden" style="margin-top:14px">
+          <div id="draftNote" class="banner info"></div>
+          <p class="muted" style="margin-bottom:4px">Canonical task to be approved (this exact JSON is what runs):</p>
+          <pre class="code" id="draftJson"></pre>
+          <div class="row">
+            <button id="activateBtn" class="ok">Approve & activate</button>
+            <button id="discardBtn" class="secondary">Discard</button>
+          </div>
+          <details style="margin-top:10px">
+            <summary class="muted">Edit the task JSON manually</summary>
+            <p class="muted" style="margin:6px 0">Edit, then <strong>Validate</strong>. The server returns the
+              canonical task + digest; the preview above refreshes and approval binds to that exact version.
+              Any edit invalidates a pending approval until re-validated.</p>
+            <textarea id="editJson" spellcheck="false" style="width:100%;min-height:140px;font-family:monospace"></textarea>
+            <div class="row" style="margin-top:8px"><button id="validateBtn" class="secondary">Validate edited JSON</button></div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Understand the video</h2>
+      <p class="muted">Inspect actual sampled frames with the vision model. This observation never activates a task or creates an alert. Unfamiliar-object tracking, exact counting and temporal state changes are unavailable.</p>
+      <label for="sceneQuestion">Question about visible content</label>
+      <input id="sceneQuestion" value="What objects and environment are visible in this video?" maxlength="1000" />
+      <button id="sceneBtn" style="margin-top:10px">Inspect sampled frames</button>
+      <pre id="sceneResult" class="code" style="white-space:pre-wrap">No visual inspection yet.</pre>
+    </div>
+
+    <div class="card">
+      <h2>Active task</h2>
+      <div id="activeTask" class="muted">No task yet.</div>
+      <div class="row" id="taskControls" style="margin-top:12px"></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h2>Events & evidence</h2>
+        <table><thead><tr><th>#</th><th>Event</th><th>When</th><th>Evidence</th><th>VLM</th></tr></thead>
+        <tbody id="events"><tr><td colspan="5" class="muted">No events yet.</td></tr></tbody></table>
+      </div>
+      <div class="card">
+        <h2>Local notifications</h2>
+        <table><thead><tr><th>#</th><th>Title</th><th>Message</th></tr></thead>
+        <tbody id="notifs"><tr><td colspan="3" class="muted">None yet.</td></tr></tbody></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/static/common.js"></script>
+<script>
+let roomId=null, feedTimer=null, pollTimer=null, currentDraft=null, planProvenance=null;
+// Approval is bound to the exact canonical draft the server issued. We only send
+// a draft_hash/expected_version we received from plan/validate; a manual edit
+// clears them so a stale identity can never be approved (LIVE-VIDEO-005).
+let currentDraftHash=null, currentDraftVersion=null;
+let sourceVideoRoom=null, renderedTaskVersion=-1, lastRenderedState=null;
+let pollGeneration=0, pollSequence=0, lastAppliedPoll=0;
+// Monotonic generation for plan requests: any edit/discard/new-plan invalidates
+// an earlier in-flight planning response so a late reply cannot install an
+// obsolete task or reveal Approve (LIVE-011).
+let planGen=0;
+let sceneGen=0, sceneIdentity=null;
+
+// A revoked/expired session (401/403) must visibly stop the stale running display
+// and request sign-in rather than silently retaining old frames/state (LIVE-VIDEO-009).
+function isAuthError(e){
+  return /\b(401|403)\b|auth|session|sign ?in|expired|forbidden|unauthor|credential|not authenticated/i
+    .test(String((e && e.message) || e || ""));
+}
+function requireLogin(msg){
+  if (feedTimer) clearInterval(feedTimer); feedTimer=null;
+  if (pollTimer) clearInterval(pollTimer); pollTimer=null;
+  pollGeneration++; renderedTaskVersion=-1; lastRenderedState=null;
+  roomId=null; sourceVideoRoom=null;
+  sceneGen++; sceneIdentity=null;
+  const sr=document.getElementById("sceneResult"); if(sr) sr.textContent="No visual inspection yet.";
+  const f=document.getElementById("feed"); if(f) f.src="";
+  const sv=document.getElementById("sourceVideo");
+  if(sv){ if(sv.pause) sv.pause(); sv.src=""; if(sv.removeAttribute) sv.removeAttribute("src"); if(sv.load) sv.load(); }
+  const at=document.getElementById("activeTask"); if(at) at.textContent="No task yet.";
+  const ctrls=document.getElementById("taskControls"); if(ctrls) ctrls.innerHTML="";
+  const job=document.getElementById("jobInfo"); if(job) job.textContent="No processing yet.";
+  const ev=document.getElementById("events"); if(ev) ev.innerHTML=`<tr><td colspan="5" class="muted">No events yet.</td></tr>`;
+  document.getElementById("main").classList.add("hidden");
+  document.getElementById("authCard").classList.remove("hidden");
+  setBanner("banner","err",msg||"Session expired — please sign in again.");
+}
+
+fetch("/api/live/health").then(r=>r.json()).then(h=>{
+  const p=document.getElementById("teacherPill");
+  if(h.teacher_available){ p.className="pill ok"; p.innerHTML='<span class="dot"></span>VLM available'; }
+  else { p.className="pill muted"; p.innerHTML='<span class="dot"></span>VLM unavailable'; }
+}).catch(()=>{});
+
+document.getElementById("joinBtn").onclick = async () => {
+  const pin=document.getElementById("pin").value, code=document.getElementById("code").value.trim();
+  try {
+    await login("judge", pin);
+    const r = await api("/api/live/rooms/join", { method:"POST", body:{ join_code: code } });
+    roomId = r.room_id;
+    document.getElementById("authCard").classList.add("hidden");
+    document.getElementById("main").classList.remove("hidden");
+    setBanner("banner","info","Joined the live room.");
+    openFeed(); startPolling();
+  } catch(e){ setBanner("banner","err",e.message); }
+};
+
+function openFeed() {
+  // OWNER PIVOT: the WebSocket push channel is disabled. The judge watches the
+  // annotated video via authenticated HTTP polling of the frame endpoint (the
+  // session cookie is sent same-origin). A changing query defeats caching.
+  if (feedTimer) clearInterval(feedTimer);
+  const img = document.getElementById("feed");
+  feedTimer = setInterval(() => {
+    if (!roomId) { clearInterval(feedTimer); return; }
+    img.src = `/api/live/rooms/${roomId}/frame?t=${Date.now()}`;
+  }, 400);
+}
+
+function startPolling() {
+  if (pollTimer) clearInterval(pollTimer);
+  const tick = async () => {
+    if (!roomId) return;
+    const requestedRoom=roomId, generation=pollGeneration, sequence=++pollSequence;
+    try {
+      const s = await api(`/api/live/rooms/${requestedRoom}/state`);
+      if (roomId!==requestedRoom || generation!==pollGeneration || sequence<lastAppliedPoll) return;
+      lastAppliedPoll=sequence;
+      renderState(s);
+    } catch(e){
+      if (roomId!==requestedRoom || generation!==pollGeneration || sequence<lastAppliedPoll) return;
+      if (isAuthError(e)) requireLogin("Session expired — please sign in again.");
+      /* else transient: keep last */
+    }
+  };
+  tick(); pollTimer = setInterval(tick, 1500);
+}
+
+function renderState(s) {
+  if (Number.isInteger(s.task_version)) {
+    if (s.task_version<renderedTaskVersion) return;
+    renderedTaskVersion=s.task_version;
+  }
+  lastRenderedState=s;
+  const sceneKey=roomId && s.video?.sha256 ? `${roomId}:${s.video.sha256}:${s.task_version}` : null;
+  if(sceneKey!==sceneIdentity){
+    sceneIdentity=sceneKey; sceneGen++;
+    const sr=document.getElementById("sceneResult"); if(sr) sr.textContent="No visual inspection for this source/workflow version.";
+  }
+  const m = s.metrics;
+  document.getElementById("mFps").textContent = m.observed_fps ? m.observed_fps.toFixed(1) : "—";
+  document.getElementById("mInf").textContent = m.last_inference_ms ? m.last_inference_ms+" ms" : "—";
+  document.getElementById("mAge").textContent = m.last_recv_age_s!=null ? m.last_recv_age_s+" s" : "—";
+  document.getElementById("mRecv").textContent = `${m.frames_received} / ${m.frames_dropped}`;
+
+  const at = document.getElementById("activeTask");
+  const ctrls = document.getElementById("taskControls");
+  if (s.task) {
+    const st = s.task_paused ? "paused" : (s.task_enabled ? "running" : "disabled");
+    at.innerHTML = `<strong>${escapeHtml(s.task.name)}</strong> — <span class="pill ${s.task_enabled&&!s.task_paused?'ok':'warn'}"><span class="dot"></span>${st}</span>
+      <div class="muted" style="margin-top:6px">class <code class="inline">${escapeHtml(s.task.object_class)}</code>,
+      trigger <code class="inline">${escapeHtml(s.task.trigger)}</code>, action <code class="inline">${escapeHtml(s.task.action)}</code>
+      · version ${s.task_version}</div>`;
+    ctrls.innerHTML = "";
+    if (s.task_enabled) {
+      ctrls.appendChild(btn(s.task_paused?"Resume":"Pause","secondary",()=>setState({paused:!s.task_paused})));
+      ctrls.appendChild(btn("Disable","danger",()=>setState({enabled:false})));
+    } else {
+      // A disabled task exposes an explicit re-enable control (LIVE-007).
+      ctrls.appendChild(btn("Re-enable","ok",()=>setState({enabled:true})));
+    }
+  } else { at.textContent = "No task yet."; ctrls.innerHTML=""; }
+
+  // Actual video-job status is independent from task enablement. Show the real
+  // job_status plus frame progress (count/total) and source-clock time/error.
+  const v = s.video || {};
+  const job = document.getElementById("jobInfo");
+  if (job) {
+    const fps = (v.meta && v.meta.fps) ? v.meta.fps : null;
+    const total = v.job_total || (v.meta && v.meta.frame_count) || 0;
+    const proc = v.job_processed || 0;
+    if (v.job_status) {
+      let line = `job: ${escapeHtml(String(v.job_status))} · ${proc}/${total} frames`;
+      if (fps) {
+        const elapsed = proc / fps;
+        const dur = total ? total / fps : (v.meta ? v.meta.duration_seconds : null);
+        line += ` · source t=${elapsed.toFixed(1)}s` + (dur != null ? ` / ${Number(dur).toFixed(1)}s` : "");
+      }
+      if (v.job_error) line += ` · error: ${escapeHtml(String(v.job_error))}`;
+      job.textContent = line;
+      job.className = v.job_status === "error" ? "banner err" : "muted";
+    } else { job.textContent = "No processing yet."; job.className = "muted"; }
+  }
+  // The same room can own a NEW upload. Cache identity follows the actual
+  // source digest, not just the room or its processing status.
+  const sv = document.getElementById("sourceVideo");
+  const sourceKey = roomId && v.sha256 ? `${roomId}:${v.sha256}` : null;
+  if (sv && sourceKey!==sourceVideoRoom) {
+    if (sv.pause) sv.pause();
+    sv.src = sourceKey ? `/api/live/rooms/${roomId}/video/source?sha=${encodeURIComponent(v.sha256)}` : "";
+    sourceVideoRoom=sourceKey;
+    if (!sourceKey && sv.removeAttribute) sv.removeAttribute("src");
+    if (sv.load) sv.load();
+  }
+
+  const ev = document.getElementById("events");
+  if (s.events.length) {
+    ev.innerHTML = s.events.slice().reverse().map(e=>{
+      const t = new Date(e.event_ts*1000).toLocaleTimeString();
+      const vo = e.visual_observation;
+      const voCell = vo ? `${escapeHtml(vo.status)}${vo.label?": "+escapeHtml(vo.label):""}${vo.uncertain?" (uncertain)":""}` : "—";
+      const evi = e.evidence_url ? `<img class="evidence" src="${e.evidence_url}" />` : "—";
+      return `<tr><td>${e.id}</td><td>${escapeHtml(e.detail)}</td><td>${t}</td><td>${evi}</td><td>${voCell}</td></tr>`;
+    }).join("");
+  } else ev.innerHTML = `<tr><td colspan="5" class="muted">No events yet.</td></tr>`;
+
+  const nf = document.getElementById("notifs");
+  if (s.notifications.length) {
+    nf.innerHTML = s.notifications.slice().reverse().map(n=>
+      `<tr><td>${n.id}</td><td>${escapeHtml(n.title)}</td><td class="muted">${escapeHtml(n.message)}</td></tr>`).join("");
+  } else nf.innerHTML = `<tr><td colspan="3" class="muted">None yet.</td></tr>`;
+}
+
+document.getElementById("planBtn").onclick = async () => {
+  const text = document.getElementById("prompt").value.trim();
+  if (text.length < 3) { setBanner("banner","err","Describe the task first."); return; }
+  // Starting a new plan invalidates any pending/in-flight approval.
+  const gen = ++planGen;
+  currentDraft = null;
+  document.getElementById("activateBtn").classList.add("hidden");
+  setBanner("banner","info","Planning with the AI agent…");
+  try {
+    const r = await api(`/api/live/rooms/${roomId}/task/plan`, { method:"POST", body:{ text } });
+    if (gen !== planGen) return;           // a later edit/plan superseded this one
+    showDraft(r, text);
+  } catch(e){ if (gen === planGen) setBanner("banner","err",e.message); }
+};
+
+function showDraft(r, plannedText) {
+  setBanner("banner","info","");
+  const draft = document.getElementById("draft");
+  const note = document.getElementById("draftNote");
+  const json = document.getElementById("draftJson");
+  const actBtn = document.getElementById("activateBtn");
+  const pm = document.getElementById("planMeta");
+  const prov = r.provenance||{};
+  // Unknown cost must read "unavailable", never a fabricated $0.0000.
+  const cost = (prov.cost_usd==null) ? "cost unavailable" : ("$"+Number(prov.cost_usd).toFixed(4));
+  pm.textContent = prov.model ? `model ${prov.model} · ${prov.duration_ms?Math.round(prov.duration_ms)+"ms":""} · ${cost} · attempt ${prov.attempt}/${r.planner_budget||''}` : "";
+  currentDraft = null; currentDraftHash = null; currentDraftVersion = null;
+  draft.classList.remove("hidden");
+  if (r.status === "ok" && r.task) {
+    currentDraft = r.task;
+    // Bind approval to the exact canonical identity the server issued (if any).
+    currentDraftHash = (r.draft_hash!=null) ? r.draft_hash : null;
+    currentDraftVersion = (r.expected_version!=null) ? r.expected_version
+                        : (r.base_version!=null ? r.base_version : null);
+    note.className = "banner info";
+    note.innerHTML = `<strong>Proposed task</strong> for: “${escapeHtml(r.original_text)}”.<br>${escapeHtml(r.task.explanation||"")}
+      ${r.clarification?`<br><em>Note: ${escapeHtml(r.clarification)}</em>`:""}`;
+    json.textContent = JSON.stringify(r.task, null, 2);
+    const edit=document.getElementById("editJson"); if(edit) edit.value = JSON.stringify(r.task, null, 2);
+    actBtn.classList.remove("hidden");
+  } else {
+    note.className = "banner err";
+    const why = r.unsupported_reason || r.clarification || r.error || "The agent could not express this request.";
+    note.innerHTML = `<strong>${escapeHtml(r.status)}</strong> — ${escapeHtml(why)}`;
+    json.textContent = r.proposal ? JSON.stringify(r.proposal, null, 2) : "(no structured proposal)";
+    actBtn.classList.add("hidden");
+  }
+}
+
+document.getElementById("activateBtn").onclick = async () => {
+  if (!currentDraft) return;   // a stale/edited/discarded draft can never be approved
+  try {
+    // Bind to the exact canonical draft: send task + its server-issued digest and
+    // expected version. The server rejects a mismatch with a visible reason and
+    // never silently falls back (LIVE-VIDEO-005).
+    const body = { task: currentDraft };
+    if (currentDraftHash != null) body.draft_hash = currentDraftHash;
+    if (currentDraftVersion != null) body.expected_version = currentDraftVersion;
+    const requestedRoom=roomId;
+    const r = await api(`/api/live/rooms/${requestedRoom}/task/activate`, { method:"POST", body });
+    if (roomId!==requestedRoom || !applyControlResponse(r, {enabled:true, paused:false})) return;
+    setBanner("banner","info",`Task activated (version ${r.task_version}).`);
+    document.getElementById("draft").classList.add("hidden");
+    currentDraft = null; currentDraftHash = null; currentDraftVersion = null;
+  } catch(e){ if(isAuthError(e)) requireLogin(); else setBanner("banner","err",e.message); }
+};
+document.getElementById("discardBtn").onclick = () => {
+  planGen++;  // invalidate any in-flight planning response
+  document.getElementById("draft").classList.add("hidden");
+  currentDraft=null; currentDraftHash=null; currentDraftVersion=null;
+  document.getElementById("activateBtn").classList.add("hidden");
+};
+
+// Manual JSON edit → re-validate against the server to obtain the canonical task
+// and a fresh digest/version. The preview refreshes and approval re-binds.
+document.getElementById("validateBtn").onclick = async () => {
+  const edit=document.getElementById("editJson");
+  let parsed;
+  try { parsed = JSON.parse(edit.value); }
+  catch(e){ setBanner("banner","err","Edited task is not valid JSON."); return; }
+  const gen = ++planGen;
+  currentDraft=null; currentDraftHash=null; currentDraftVersion=null;
+  document.getElementById("activateBtn").classList.add("hidden");
+  try {
+    const r = await api(`/api/live/rooms/${roomId}/task/validate`, { method:"POST", body:{ task: parsed } });
+    if (gen !== planGen) return;   // superseded by a later edit/plan
+    showDraft({ status:"ok", original_text:"(manually edited)", task:r.task,
+                draft_hash:r.draft_hash, expected_version:r.expected_version, provenance:{} });
+  } catch(e){ if(isAuthError(e)) requireLogin(); else if(gen===planGen) setBanner("banner","err",e.message); }
+};
+// Any manual edit invalidates a pending approval until re-validated.
+document.getElementById("editJson").addEventListener("input", ()=>{
+  planGen++;
+  currentDraft=null; currentDraftHash=null; currentDraftVersion=null;
+  document.getElementById("activateBtn").classList.add("hidden");
+  const note=document.getElementById("draftNote");
+  if(note) note.innerHTML="<em>Task edited — validate to preview the canonical task before approving.</em>";
+});
+// Editing the prompt invalidates ANY pending approval, including an in-flight plan
+// that has not yet returned (LIVE-011).
+document.getElementById("prompt").addEventListener("input", ()=>{
+  planGen++;
+  currentDraft=null;
+  document.getElementById("activateBtn").classList.add("hidden");
+  const note=document.getElementById("draftNote");
+  if(note) note.innerHTML="<em>Prompt edited — re-plan to approve.</em>";
+});
+
+function applyControlResponse(r, patch){
+  if (!Number.isInteger(r.task_version) || r.task_version<renderedTaskVersion) return false;
+  // Control ACK is authoritative: discard every state request sent before it.
+  pollGeneration++;
+  const previous=lastRenderedState || {task:null, metrics:{}, video:{}};
+  renderState({...previous, task:r.task || previous.task, task_version:r.task_version,
+    task_enabled:r.task_enabled ?? patch.enabled ?? previous.task_enabled,
+    task_paused:r.task_paused ?? patch.paused ?? previous.task_paused,
+    events:[], notifications:[], video:{...previous.video, job_status:null, job_error:null}});
+  document.getElementById("feed").src="";
+  document.getElementById("jobInfo").textContent="Control accepted; awaiting current video status.";
+  return true;
+}
+async function setState(patch){
+  const requestedRoom=roomId;
+  try {
+    const r=await api(`/api/live/rooms/${requestedRoom}/task/state`, { method:"POST", body:patch });
+    if (roomId===requestedRoom) applyControlResponse(r, patch);
+  }
+  catch(e){ if(roomId!==requestedRoom) return; if(isAuthError(e)) requireLogin(); else setBanner("banner","err",e.message); }
+}
+function btn(label,cls,fn){ const b=document.createElement("button"); b.className=cls; b.textContent=label; b.onclick=fn; return b; }
+document.getElementById("sceneBtn").onclick=async()=>{
+  const requestedRoom=roomId, snapshot=lastRenderedState;
+  const output=document.getElementById("sceneResult");
+  if(!requestedRoom || !snapshot?.video?.sha256){output.textContent="Select or upload a video first.";return;}
+  const question=document.getElementById("sceneQuestion").value.trim();
+  if(!question || question.length>1000){output.textContent="Enter a question of 1–1000 characters.";return;}
+  const generation=++sceneGen, identity=sceneIdentity;
+  output.textContent="Inspecting real sampled frames…";
+  try{
+    const result=await api(`/api/live/rooms/${requestedRoom}/scene`,{method:"POST",body:{question,source_sha256:snapshot.video.sha256,expected_version:snapshot.task_version}});
+    if(roomId!==requestedRoom || generation!==sceneGen || identity!==sceneIdentity) return;
+    output.textContent=JSON.stringify(result,null,2);
+  }catch(e){
+    if(roomId!==requestedRoom || generation!==sceneGen || identity!==sceneIdentity) return;
+    if(isAuthError(e)) requireLogin(); else output.textContent=e.message;
+  }
+};
+function escapeHtml(s){ return String(s==null?"":s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+</script>
+
+<footer class="muted" style="padding:16px">Copyright &copy; 2026 Argus contributors. Licensed under AGPL-3.0-only. <a href="https://github.com/samanwirst/visionflow-hackathon-2026-source/releases/download/hackathon-2026/visionflow-source.tar.gz">Get the Argus corresponding source</a>. <a href="https://www.gnu.org/licenses/agpl-3.0.html">License terms</a>.</footer>
+</body>
+</html>

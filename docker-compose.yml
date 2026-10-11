@@ -1,0 +1,3 @@
+# Scaffold only. Add web/api service definitions and Dockerfiles with the apps.
+name: hackathon-wiut-final-2026
+services: {}

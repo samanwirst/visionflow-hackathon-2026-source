@@ -1,0 +1,1557 @@
+{
+  "blockers": [],
+  "commit_timestamp": 1791704836,
+  "dependency_completeness": "Unmodified third-party dependencies/weights have separate upstream notices and exact sources; controller must verify these remain available. No model or dataset files included.",
+  "excluded": [
+    {
+      "path": ".agents/AUTOPILOT.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/DEMO_HANDOFF.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/DEMO_STATE.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/HANDOFF_LIVE.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/HANDOFF_VFSEC.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/HANDOFF_VFUI.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/HANDOFF_VFVIDEO.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/HANDOFF_VIDEO_FINAL.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/final-ff48ca9/FINAL_STATUS.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/final-ff48ca9/SHA256SUMS.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/final-ff48ca9/VALIDATION.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/final-ff48ca9/full-checks.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/final-ff48ca9/full-checks.txt",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/final-ff48ca9/real-yolo-smoke.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/final-ff48ca9/real-yolo-smoke.txt",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/synthetic-5938b6d/SHA256SUMS.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/synthetic-5938b6d/VALIDATION.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/synthetic-5938b6d/actual-paired-benchmark.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/synthetic-5938b6d/actual-reloaded-evaluation.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/synthetic-5938b6d/actual-shadow-browser.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/synthetic-5938b6d/actual-student-training.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/synthetic-5938b6d/dataset-portability-audit.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/synthetic-5938b6d/experiment-preregistration-v2.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/synthetic-5938b6d/gpu-kernel-aggregates.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/synthetic-5938b6d/human-groundtruth-approval.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/synthetic-5938b6d/human-verification-applied.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/synthetic-5938b6d/input-reproduction.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/autolearn-evidence/synthetic-5938b6d/separate-gpu-kernel-profile.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/new-photo-749d27b/SHA256SUMS.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/new-photo-749d27b/VALIDATION.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/new-photo-749d27b/actual-result.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/new-photo-749d27b/executed_smoke.py",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/new-photo-749d27b/input-manifest.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/new-photo-749d27b/privacy-safe-upper-bus.png",
+      "reason": "non-source media/model/database/binary artifact"
+    },
+    {
+      "path": ".agents/delivery-evidence/new-photo-749d27b/provenance.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-749d27b/SHA256SUMS.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-749d27b/VALIDATION.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-749d27b/actual-result.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-749d27b/execution.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-749d27b/execution.txt",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-749d27b/offline_smoke.py",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/SHA256SUMS",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/SUMMARY.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/VALIDATION.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/budget-current.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/evidence-desktop.png",
+      "reason": "non-source media/model/database/binary artifact"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/execution.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/execution.txt",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/first-host-port-attempt.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/first-private-browser-attempt.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/first-private-browser-attempt.txt",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/image-identities.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/journey.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/journey.mjs",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/run.py",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/second-private-browser-attempt-execution.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/second-private-browser-attempt-execution.txt",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/second-private-browser-attempt-journey.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/offline-browser-749d27b/servers.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/private-749d27b/VALIDATION.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/private-749d27b/actual-yolo-result.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/private-749d27b/browser-check.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/private-749d27b/candidate-source-equivalence.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/private-749d27b/fallback-browser-journey.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/private-749d27b/http-auth-check.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/private-749d27b/image-identities.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/private-749d27b/locked-build-result.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/private-749d27b/npm-audit.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/private-749d27b/recording-metadata.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/private-749d27b/tracking-start-results.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/unseen-749d27b/VALIDATION.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/unseen-749d27b/actual-result.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/unseen-749d27b/input-manifest.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/delivery-evidence/unseen-749d27b/unseen_clip_smoke.py",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/demo-evidence/99e8670/VALIDATION.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/demo-evidence/99e8670/browser_journey.mjs",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/demo-evidence/99e8670/check-result.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/demo-evidence/99e8670/evidence-desktop.png",
+      "reason": "non-source media/model/database/binary artifact"
+    },
+    {
+      "path": ".agents/demo-evidence/99e8670/fixture-manifest.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/demo-evidence/99e8670/full-checks.txt",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/demo-evidence/99e8670/journey.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/demo-evidence/99e8670/preservation.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/demo-evidence/99e8670/raw-output-sha256.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/demo-evidence/99e8670/real-yolo-smoke.txt",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/demo-evidence/99e8670/sha256.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/demo-evidence/99e8670/smoke-result.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/demo-evidence/99e8670/start_browser_servers.py",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/demo-evidence/99e8670/teacher-egress.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/demo-evidence/99e8670/viewport-validation.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/demo-evidence/99e8670/viewport_probe.mjs",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/demo-evidence/99e8670/workspace-desktop.png",
+      "reason": "non-source media/model/database/binary artifact"
+    },
+    {
+      "path": ".agents/emergency/AUTHORIZATION_PROVENANCE.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/emergency/FIVE_HOUR_SCHEDULE.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/emergency/OWNER_EMERGENCY_EXCEPTION.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/review-evidence/M2-0250feb/README.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/review-evidence/M2-0250feb/manifest.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/review-evidence/M2-0250feb/run_pytest.py",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/review-evidence/M2-0250feb/test_gate_probes.py",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/reviews/AUTOLEARN-TEN-HOUR-FINAL.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/reviews/M2-TEN-HOUR-FINAL.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/local-smol-20261010/VALIDATION.md",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/local-smol-20261010/boundary-probes.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/local-smol-20261010/candidate-scoring-smoke.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/local-smol-20261010/evidence-manifest.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/local-smol-20261010/generative-model.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/local-smol-20261010/generative-selected-video.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/local-smol-20261010/generative-service-bay.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/local-smol-20261010/image-crop-manifest.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/local-smol-20261010/listener.txt",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/local-smol-20261010/model-source.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/local-smol-20261010/requirements.lock.txt",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/local-smol-20261010/scoring-model.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/local-smol-20261010/selected-video-manifest.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/vast-offers-20261010T2129Z.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/vast-offers-20261010T2157Z.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/vast-rental-20261010/billing.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/vast-rental-20261010/cleanup.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/vast-rental-20261010/closure.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/vast-rental-20261010/evidence-manifest.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/vast-rental-20261010/outcome.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": ".agents/teacher-evidence/vllm-image-20261010.json",
+      "reason": "private review/state/experimental evidence; not application source"
+    },
+    {
+      "path": "docs/experiments/teacher/APPROVED_RENTAL_SETUP.md",
+      "reason": "presentation/private experiment material; not deployed application source"
+    },
+    {
+      "path": "docs/experiments/teacher/COMPUTE_DECISION.md",
+      "reason": "presentation/private experiment material; not deployed application source"
+    },
+    {
+      "path": "docs/experiments/teacher/LOCAL_SETUP.md",
+      "reason": "presentation/private experiment material; not deployed application source"
+    },
+    {
+      "path": "docs/experiments/teacher/RENTAL_OUTCOME.md",
+      "reason": "presentation/private experiment material; not deployed application source"
+    },
+    {
+      "path": "docs/experiments/teacher/RENTAL_PROPOSAL.md",
+      "reason": "presentation/private experiment material; not deployed application source"
+    },
+    {
+      "path": "docs/presentation/README.md",
+      "reason": "presentation/private experiment material; not deployed application source"
+    },
+    {
+      "path": "docs/presentation/VALIDATION.json",
+      "reason": "presentation/private experiment material; not deployed application source"
+    },
+    {
+      "path": "docs/presentation/VisionFlow-defense.pptx",
+      "reason": "non-source media/model/database/binary artifact"
+    },
+    {
+      "path": "docs/presentation/VisionFlow-fallback-demo.mp4",
+      "reason": "non-source media/model/database/binary artifact"
+    },
+    {
+      "path": "docs/presentation/assets/actual-trained-student-panel.png",
+      "reason": "non-source media/model/database/binary artifact"
+    },
+    {
+      "path": "docs/presentation/assets/actual-zone-workspace.png",
+      "reason": "non-source media/model/database/binary artifact"
+    },
+    {
+      "path": "docs/presentation/build.mjs",
+      "reason": "presentation/private experiment material; not deployed application source"
+    },
+    {
+      "path": "docs/source/README.md",
+      "reason": "organizer material redistribution not granted; not application source"
+    }
+  ],
+  "generated_metadata": [
+    {
+      "bytes": 448,
+      "path": "docs/source/EXCLUDED_ORGANIZER_MATERIAL.md",
+      "reason": "non-source archive scaffold/privacy notice, not a modified tracked program file",
+      "sha256": "216dbb20c965b6507f60d5448ec4cfffe3e876ceeeead627301dabda15082174"
+    },
+    {
+      "bytes": 3625,
+      "path": "UPSTREAM_RELEASE_ASSETS.json",
+      "reason": "non-source archive scaffold/privacy notice, not a modified tracked program file",
+      "sha256": "a6aa692489a934bfa0931b90c090e7b99d510fe310dba40bd59a2c1afb9a9ffc"
+    }
+  ],
+  "git_history_included": false,
+  "git_tree": "b94e4307077e9ae33c391fd4d1e9518bd30f8bbb",
+  "included": [
+    {
+      "bytes": 1478,
+      "git_blob": "6b57687b915f7b7ccd87d9d8af8093f229492a6e",
+      "path": ".agents/CONTRIBUTOR_LICENSE_CONSENT.md",
+      "sha256": "b3918445624dbda6293c74dbb486f35d07bc94773c7d0d26afd7b5a83495ea5d"
+    },
+    {
+      "bytes": 5104,
+      "git_blob": "93c90acdc929cf7cc2e74c9c2e387ff743b67ca2",
+      "path": ".agents/HANDOFF.md",
+      "sha256": "0ac910180e814603bb14da3c25d38f4935f0947d5c4b4239e3e84f95e29ac3ea"
+    },
+    {
+      "bytes": 1627,
+      "git_blob": "3961d61ab28c060b37aeaea68e43a5232accfd2d",
+      "path": ".agents/PROTOCOL.md",
+      "sha256": "860c36fb32af3019829dc7a747c941969d685eb4b01bd5ff953ba5248d0fd84c"
+    },
+    {
+      "bytes": 5389,
+      "git_blob": "a7421474d2bb876d18ba0fbce03c04d48787b17e",
+      "path": ".agents/STATE.md",
+      "sha256": "363f89fa751aabdd580c3a0afbf6853a69de3834caa2db3e34a78f8c27ae9a7d"
+    },
+    {
+      "bytes": 9689,
+      "git_blob": "fe646c8e394d3153e68754981cfec70e3eeb8f01",
+      "path": ".agents/reviews/M1.md",
+      "sha256": "15bdb7fd26d13ea880ee9c7c2b397188a92ab9201249e72b6e1f7980b01a6cf7"
+    },
+    {
+      "bytes": 13757,
+      "git_blob": "61f2eb39f1a0caefefd5450dc82fea1ed0b47c61",
+      "path": ".agents/reviews/M2.md",
+      "sha256": "26f28fd65d914fc6fac3a905a4f13de17cba220baffbdd41ef1502d0261c61dd"
+    },
+    {
+      "bytes": 740,
+      "git_blob": "64f19f7180dd36f951c5595e4e93e3449e45f619",
+      "path": ".agents/reviews/M3.md",
+      "sha256": "d655aab9636a7fb59cd291498107f6d9a8159c66177a6c08dc95da0ad462b1f6"
+    },
+    {
+      "bytes": 855,
+      "git_blob": "abe1f15986feeb620aaf90c8c9c756ddbd760b5f",
+      "path": ".agents/reviews/M4.md",
+      "sha256": "a621c09c4095dd637e8f2df84049042a4679f11469bc95685b4c08a25d712ce1"
+    },
+    {
+      "bytes": 129,
+      "git_blob": "660246dc3e3f5633b56fd8a42a89b61e47a17596",
+      "path": ".dockerignore",
+      "sha256": "f5729ef425a3f3707058ae2e2c29eb76d1d7cd2229cd4ebec96b4d7e1bea8d1d"
+    },
+    {
+      "bytes": 5351,
+      "git_blob": "0b600a0912659f53aa96901ba7e3bf159091f989",
+      "path": ".env.example",
+      "sha256": "ef4f5b3646feacaf16dac2a28342550d11c6261c6bb6009bc6a01154b88c1996"
+    },
+    {
+      "bytes": 1539,
+      "git_blob": "fde23f1bea86eab542739241d2145c45cd6b3b1d",
+      "path": ".github/workflows/ci.yml",
+      "sha256": "f218e5da5424794762a011dc17f975ca919433b8dfb2ed9dd49a564b12f5a686"
+    },
+    {
+      "bytes": 359,
+      "git_blob": "84e8cc56159da87399e84f113b564766f422e761",
+      "path": ".gitignore",
+      "sha256": "4fbb5b38273527f3c2fe6cd7d23acae267528937a8ee1cb7e217acc61e12c3ec"
+    },
+    {
+      "bytes": 7927,
+      "git_blob": "9114502b07c7374280feb9e0753edc6e29282f40",
+      "path": "AGENTS.md",
+      "sha256": "382c84e76eab01969b4c10c57730ac0538de106b639f2e50afe60ef9217b7b3b"
+    },
+    {
+      "bytes": 8013,
+      "git_blob": "354df8ec3427a1aaac19ff843cd3448a70fc7283",
+      "path": "CLAUDE.md",
+      "sha256": "e539fc555daec48349d11b52f36242017152cdb42404a51e4a182b874f04b9a0"
+    },
+    {
+      "bytes": 34523,
+      "git_blob": "be3f7b28e564e7dd05eaf59d64adba1a4065ac0e",
+      "path": "LICENSE",
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0"
+    },
+    {
+      "bytes": 600,
+      "git_blob": "70fe3f06f246116bab07470d703a08b4c5488abd",
+      "path": "Makefile",
+      "sha256": "daffaba1d79f44927ae1c1d41e078ebc03c45003dbded624bb7de21e5aa527a6"
+    },
+    {
+      "bytes": 1995,
+      "git_blob": "fe532cbe77c5d22670e3ddb7af0a80507a12efe7",
+      "path": "NOTICE",
+      "sha256": "d51e9651d7c2f93f980f0c0a1404d63d53c0eee52e0ea864b176039c00f39189"
+    },
+    {
+      "bytes": 15610,
+      "git_blob": "59b9d801b27cd3c736bc08fc5e69f0b6e74054b7",
+      "path": "README.md",
+      "sha256": "c79f7f82824f7b0c9df5666905ca9ccdd58185df5fd73a2d9a99adcc41c3be50"
+    },
+    {
+      "bytes": 2143,
+      "git_blob": "50a3befbea194b7a757b2d29632fadf22deb2417",
+      "path": "apps/web/README.md",
+      "sha256": "51fcb0bad587226e81f1e9bffe45959898ca2a57592ed4f2a56409578bc52dad"
+    },
+    {
+      "bytes": 14766,
+      "git_blob": "3759af1ec3eee945daf5d23183de5cfe8769dd11",
+      "path": "apps/web/app/globals.css",
+      "sha256": "ebbed979adef7f79234268d9d0532514f5bd999f9b856f2f7bc8d3e202c894f5"
+    },
+    {
+      "bytes": 357,
+      "git_blob": "e196460955d875f91aa4b7c3e2337a875f4c979a",
+      "path": "apps/web/app/layout.tsx",
+      "sha256": "fd35daf5a04286e280f182feb5c0312c45256a5cf14d62972ef23ce66921c19b"
+    },
+    {
+      "bytes": 52007,
+      "git_blob": "ee218375cb50b0ffff5aabb26fc0ff5c2f880974",
+      "path": "apps/web/app/page.tsx",
+      "sha256": "595622c3d5c735f37af2ede17595b6b3c2502796460bfd1f8bd44c82b0f7b4c4"
+    },
+    {
+      "bytes": 262,
+      "git_blob": "830fb594ca2970a827555c28a253b097367e08d8",
+      "path": "apps/web/next-env.d.ts",
+      "sha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6"
+    },
+    {
+      "bytes": 130,
+      "git_blob": "2f6491cfba10ee06776b2acad06b2a5e440360b1",
+      "path": "apps/web/next.config.ts",
+      "sha256": "c5efcdb15ee66db5a3a749082d8a2d68abdd0555ce251baee0e3fd920b4c55b5"
+    },
+    {
+      "bytes": 33689,
+      "git_blob": "a7ece06ede0739dfb8221b63ad0ca8c662b91898",
+      "path": "apps/web/package-lock.json",
+      "sha256": "489422cba2effb049fb133e920eb0248c6a1a1456960c17fb24a39f6259cdce4"
+    },
+    {
+      "bytes": 427,
+      "git_blob": "1d037096248e5f2d682a2613e3b22a561752cb64",
+      "path": "apps/web/package.json",
+      "sha256": "bff720ab5f95cef7c8ab652d99564ab29763c4ee70f2dfe6ff139f57467ef0e9"
+    },
+    {
+      "bytes": 562,
+      "git_blob": "6420eed1a464012cbd1f7621682b522f34e342fc",
+      "path": "apps/web/tsconfig.json",
+      "sha256": "1519b3e409b0059442adaf1c0c663021214e914c0f80b40cbba705e378aa4537"
+    },
+    {
+      "bytes": 1330,
+      "git_blob": "c2c7da03cfb352cf7da3a7fb04dc1da4fdb3f214",
+      "path": "deploy/Dockerfile.api",
+      "sha256": "da294a0c9c2a7cba9b1b67a724a35e1775c07ea5d07cba0fcf5a748fe74d871c"
+    },
+    {
+      "bytes": 759,
+      "git_blob": "e1e37951dfe8d7f37c8bf50bfcdb00853270a14f",
+      "path": "deploy/Dockerfile.web",
+      "sha256": "965817fa4575a5256bf448cb899f881659204fe8d4424e9d9b96c123b0046783"
+    },
+    {
+      "bytes": 2998,
+      "git_blob": "ed93137a7ffdb3669b043b81992247353bf4e06c",
+      "path": "deploy/README.md",
+      "sha256": "92266cbc434e49bbe6c4be4250e38815ec3f4c5ea40ea44a766e5a892973485a"
+    },
+    {
+      "bytes": 629,
+      "git_blob": "f651191cb08ad7d2c7bcfb9c6338badd1c00369e",
+      "path": "deploy/compose.gateway.yaml",
+      "sha256": "b923ecab93aec71308d8092db289ec583a31f82d25bd13bdfd1397e7c9799232"
+    },
+    {
+      "bytes": 793,
+      "git_blob": "5700e4a40e48f4a1bd60225d3d31a3cea91d32c7",
+      "path": "deploy/compose.yaml",
+      "sha256": "1254162c4f9e846f0c446380fecd974de8999f10683288d677d04ca8eac747cd"
+    },
+    {
+      "bytes": 793,
+      "git_blob": "b5caa4640a7c9a9f30c0f38463116ca09f641c9d",
+      "path": "deploy/nginx.conf",
+      "sha256": "165db423d8d3fc6bec1bd34de7ff928484c3b6cfd0945963aa2dcd6bbb8af5a7"
+    },
+    {
+      "bytes": 1222,
+      "git_blob": "19c0ea1e8c6108eecea1a01b540b0eb99ae33611",
+      "path": "deploy/requirements.api.lock.txt",
+      "sha256": "f56a3130c8862861b5383afd8c6815cfbabb8e98958111f7332158b1abcd7881"
+    },
+    {
+      "bytes": 12,
+      "git_blob": "372cc5f13e5b8a7a94026086d1e7cbe835a05084",
+      "path": "deploy/requirements.tracking.lock.txt",
+      "sha256": "5a1d736a4156a8193c11f823e996228897a19f9d69a46d563fedfc24e0d96045"
+    },
+    {
+      "bytes": 125,
+      "git_blob": "4234df1b5a238926cc993aa575e40a076135650c",
+      "path": "docker-compose.yml",
+      "sha256": "069a299936ccdacc39d50083f387a1737b5a0aee1ba9ae86a737fe32f913bfa6"
+    },
+    {
+      "bytes": 5714,
+      "git_blob": "9a77eadda136c3668d7e880453d781bf90ccd24a",
+      "path": "docs/ARCHITECTURE.md",
+      "sha256": "30f67b6e1bf0e18afd0e937d2ccce3550c7e0a1af36db79214304cd300f309b7"
+    },
+    {
+      "bytes": 4014,
+      "git_blob": "d8a657783483702202291b80547977610651ff3b",
+      "path": "docs/DEFENSE_QA.md",
+      "sha256": "01899aa981065d0a96f69f659a8e7383d1755371923cc8f67dd28f11a4e7763b"
+    },
+    {
+      "bytes": 4810,
+      "git_blob": "7f0acddc6dddd34a0df5694bfd2444225342aeba",
+      "path": "docs/DEFENSE_SCRIPT.md",
+      "sha256": "3f69fb84353df8945dab333753f8b2f85983a9803389e1be97f61b357f5fd33a"
+    },
+    {
+      "bytes": 1033,
+      "git_blob": "24100bbea9d893e560bf2a9aa42f0c4090107e63",
+      "path": "docs/DEMO.md",
+      "sha256": "f14d13b0588e94c8137d5ec73251cd88657a2d02333ca22f48cee8cad31581a0"
+    },
+    {
+      "bytes": 10570,
+      "git_blob": "38df8557b84c5c5443b492038f59d39a0c0e1cae",
+      "path": "docs/DEMO_GUIDE.md",
+      "sha256": "1ad5127ce96932976a4b0a531cf10563782d9b072610052edfa4a3d1b2b7975d"
+    },
+    {
+      "bytes": 4294,
+      "git_blob": "11654b8622b8da3c49fa1abc777a06db4bdfaec0",
+      "path": "docs/FINAL_DEMO_HANDOFF.md",
+      "sha256": "2eb8e50028e11cb7845246f56257622cde2faef6d14fa459e70175bebb717949"
+    },
+    {
+      "bytes": 4339,
+      "git_blob": "4ee65ce08d1932f3b543090b49a6a45f6fccf36e",
+      "path": "docs/GOAL_COMPLETION_AUDIT.md",
+      "sha256": "b02e639fd73c045f491a3d1e4ed8a09f683cdcf98947226e07ea2e10d06f62b0"
+    },
+    {
+      "bytes": 10054,
+      "git_blob": "2be4557e55c9d83a88590f69dfebb2eed836775d",
+      "path": "docs/LICENSES.md",
+      "sha256": "c556ec78609953d106fbfd5dad08e66ce241f7a9510f31218e0eef0d9b341a1f"
+    },
+    {
+      "bytes": 6622,
+      "git_blob": "0c9a62154b2dd69ff7404f98535f8d19bf1a8f42",
+      "path": "docs/LIVE_DEMO.md",
+      "sha256": "54a44095ee7b7bf50ec47bd9bc93734844abfd3c976bafe85d718b50407c64cc"
+    },
+    {
+      "bytes": 5407,
+      "git_blob": "5e1b4988bdcc3c58541c5078f830728d50107c4e",
+      "path": "docs/METRICS.md",
+      "sha256": "c9b795d23e92e02f2ba58014c39cf5687a623ef781e1e254beb2e88c8619115e"
+    },
+    {
+      "bytes": 32356,
+      "git_blob": "a8d0415bc1201e8dac9af5db286e86e4ff01b0a7",
+      "path": "docs/PRD.md",
+      "sha256": "7a7b1e8451be3436bb100943be059408d9c5ff45cbdc064bcb2ed47dcc97c3da"
+    },
+    {
+      "bytes": 3279,
+      "git_blob": "157caf690ca8031805617e1cfc3cbc8628c04fec",
+      "path": "docs/PUBLICATION_PROPOSAL.md",
+      "sha256": "052f132a265b984015ba8cb9b20be4c2846eca6c58b7075cd3d13551584401d7"
+    },
+    {
+      "bytes": 5364,
+      "git_blob": "60658c7d13a4d751fe3f81db2f93c8f0e94d197b",
+      "path": "docs/TEN_HOUR_PLAN.md",
+      "sha256": "09afd9818a1289a324071ef141e3b2663abb6dac7220da8d741ee17fcbd932ea"
+    },
+    {
+      "bytes": 4578,
+      "git_blob": "1d32e7b32600d8af380b4d8f78e3620ad736ce83",
+      "path": "docs/TEN_HOUR_STATUS.md",
+      "sha256": "bbcf990b305fe2ffd5c6b1dbb389d058c05ef78715d7aa4d86dbc1ae887a5964"
+    },
+    {
+      "bytes": 25471,
+      "git_blob": "672223dbd09ea3d628181f95f43652c679f6db26",
+      "path": "docs/TRACEABILITY.md",
+      "sha256": "715dc918778d5b77798154a9fd41df648e9fba840d13ebf3937aaf6e0dbe3a38"
+    },
+    {
+      "bytes": 3471,
+      "git_blob": "9b87b83a1eb25aa739d980cd828edc00c95434db",
+      "path": "docs/VISUAL_ANALYTICS_AUDIT.md",
+      "sha256": "8ba3798f22e5931fb8d1ae6e1bb789e4e98408f82175b50f104d78fa069d2e3f"
+    },
+    {
+      "bytes": 7843,
+      "git_blob": "f9b8119818a7084c9ac86c3a27d3bd11e572bf44",
+      "path": "docs/VLM_ARCHITECTURE.md",
+      "sha256": "38c98c14584df2c7529056e35ff41d9d3ad3a484c3c25a15b334d5de8b3411c5"
+    },
+    {
+      "bytes": 370,
+      "git_blob": "fc845750e0cd5d35d6e4fc49604fc73fcb140a8e",
+      "path": "packages/autolearn/README.md",
+      "sha256": "38434932cb291fd61e16a737f6718d0cd1b2a2f7828af80e5b1bb7f186e70f12"
+    },
+    {
+      "bytes": 854,
+      "git_blob": "cdd11dc131a04a132685220c161328d5fec6b13b",
+      "path": "packages/integrations/README.md",
+      "sha256": "bf160de1eae6339685a02baf8d4a4d6c79036fe3ce8e6f7e8a430fd39048598e"
+    },
+    {
+      "bytes": 426,
+      "git_blob": "ea45dcc47e883847e927a79bf79675976d36def5",
+      "path": "packages/vision/README.md",
+      "sha256": "01da0055cd7375489c919583b700f018bdb06b60a71d00216d1069628a133e42"
+    },
+    {
+      "bytes": 343,
+      "git_blob": "3d238e3cfb2aac9498dfc270070dc68c18a5e31b",
+      "path": "packages/vision/pyproject.toml",
+      "sha256": "81382fdff97187f3c01892b4d95dff6778fab744255e944317ce4c0e3d6ccb8d"
+    },
+    {
+      "bytes": 327,
+      "git_blob": "feb2ef94775c0c6a844a89f2dddc02fe2ed614a4",
+      "path": "packages/vision/visionflow_vision/__init__.py",
+      "sha256": "82fdc08870c9c4b896d3bea985c7551358e5d32ac589c07b7aa815058d1f3863"
+    },
+    {
+      "bytes": 3195,
+      "git_blob": "61af13fe4e06461df3e451397de59b077fccc7cd",
+      "path": "packages/vision/visionflow_vision/detector.py",
+      "sha256": "a0f6f5c4dd1cf8053689d94ca6ffce580ee2a18dff8e8c18533b674ff84c62a6"
+    },
+    {
+      "bytes": 9692,
+      "git_blob": "aa538a2fece09c1c1fd7e71c0be882ba9c539919",
+      "path": "packages/vision/visionflow_vision/events.py",
+      "sha256": "0331952370ba5af14a93f8fd951d2c4bba95cbe57b131aa4bc1e1672c24f984e"
+    },
+    {
+      "bytes": 2022,
+      "git_blob": "14cfd2bc527c48046e47ebcd6ec7d5bb3b690be0",
+      "path": "packages/vision/visionflow_vision/zones.py",
+      "sha256": "1ba9389aaba8f015ac416a28ee9a689fbe860d2581784ad22031ecd709d5c841"
+    },
+    {
+      "bytes": 278,
+      "git_blob": "52fb7a4278138c315c43de00abfc9f1d61d7b8fc",
+      "path": "packages/workflows/README.md",
+      "sha256": "194a07414a9958d8e31396e7f2a35fafe4f07b605b6b65b8d3af73b2e25bcc00"
+    },
+    {
+      "bytes": 1886,
+      "git_blob": "d0322b926bef3182a6f198f3902409cabad17d34",
+      "path": "scripts/check_structure.py",
+      "sha256": "37635437d477855a28ead3f22ebe042be1fd22dfc0e6af7a8f4cdd300f72c0e3"
+    },
+    {
+      "bytes": 4719,
+      "git_blob": "daa8333d951182f0f541484a358d568970c70942",
+      "path": "scripts/experiments/download_remote_teacher.py",
+      "sha256": "6998523ee2397bee7bb1369f4041b1351e15711538a7547300ed822a69993108"
+    },
+    {
+      "bytes": 4422,
+      "git_blob": "060176c2b49c2a5a2e96d61f198c7f8d593035b7",
+      "path": "scripts/experiments/generate_synthetic_occupancy.py",
+      "sha256": "54a89807e3d620ea072651f70086186bd5acabaaf0ab875396d4c2fb2671ff26"
+    },
+    {
+      "bytes": 14976,
+      "git_blob": "e04e6548efce8a6cabbcff60e9e968f77434bd63",
+      "path": "scripts/experiments/local_teacher.py",
+      "sha256": "930be3d3b307993ed6bb712622ae75c6ed2b2e2477e95460642137b43f340d95"
+    },
+    {
+      "bytes": 4724,
+      "git_blob": "29cdad30dacab6ebfcdb06859d1f2fa3699cf4fe",
+      "path": "scripts/experiments/probe_local_teacher_boundaries.py",
+      "sha256": "13142ad922ec16f12b1a70f493c04f72ae68a99542bcf6a8e122fc7ecdb573be"
+    },
+    {
+      "bytes": 4187,
+      "git_blob": "496ba89d4437e9de934e8c7524b64318710d3848",
+      "path": "scripts/experiments/smoke_local_teacher.py",
+      "sha256": "43e2d14e4469499a6fdea555aa8882fabffc7cd445ab97b31f1d2cfb58465da5"
+    },
+    {
+      "bytes": 1950,
+      "git_blob": "c5fec9c517b14c33fe5891dbcb447da04985451c",
+      "path": "scripts/experiments/start_remote_teacher.sh",
+      "sha256": "9a319a5c23a186a53484bc44c23cb068b768e01c63f063b374f9665913d7be57"
+    },
+    {
+      "bytes": 3020,
+      "git_blob": "fdb8594ff58f004cec08af477e25128ce11c43c9",
+      "path": "scripts/make_demo_safe_video.py",
+      "sha256": "f7bdcab1ea27b7022b42860258d130144ab9a17ac36f255f871f3a02be6ceb67"
+    },
+    {
+      "bytes": 1641,
+      "git_blob": "1d92a751a64d1416d436ded15f47f83c72f85bee",
+      "path": "scripts/make_demo_video.py",
+      "sha256": "2db84f1260633d9127f3c8b7e1ac6fc999a97de7484034637aec573fdd12890c"
+    },
+    {
+      "bytes": 39132,
+      "git_blob": "6aae8b99114766ae85ec09eba23eef1ffc7557f3",
+      "path": "scripts/orchestrate.py",
+      "sha256": "7c7103e68604d69d942737f1e52eeb10650d5b84d8b3df921debd4468a429121"
+    },
+    {
+      "bytes": 5454,
+      "git_blob": "aed2641ee2a2b1d4d726692dfa92a1b82ae8a1a0",
+      "path": "scripts/smoke_e2e.py",
+      "sha256": "393980566918ff57075dd3ca36db4657450dfe4b3bb2a740c22ef9c19d6c51a8"
+    },
+    {
+      "bytes": 335,
+      "git_blob": "1fa409a56e7d4cffaf1bcdbb06e5545b909715a4",
+      "path": "services/api/README.md",
+      "sha256": "c4a347a41f224fe5c30f2ef012b6ff9d010a3e56f006906a7e27c228aefbc79a"
+    },
+    {
+      "bytes": 0,
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "path": "services/api/app/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 3509,
+      "git_blob": "339484330468c33cd31f5900e90b8f0c18f61b80",
+      "path": "services/api/app/actions.py",
+      "sha256": "46ca5b6ef9e9a7f2875bcf6449c4188001bec701f4bb042995ed5e67086c6e0d"
+    },
+    {
+      "bytes": 6724,
+      "git_blob": "7e7842228a47ba2d1922d3fef2975b19fb648b37",
+      "path": "services/api/app/config.py",
+      "sha256": "3305b64a3d9eda13c1d4a09adf101fca356794aba2d66d48145d181685f057b2"
+    },
+    {
+      "bytes": 7391,
+      "git_blob": "531db9e2436e7cb890c34b76754e9556c5c4b35d",
+      "path": "services/api/app/db.py",
+      "sha256": "77875e9275cd578b49e967886da80c32ce945d26a3e0c8d18c84f9e6be158fb2"
+    },
+    {
+      "bytes": 0,
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "path": "services/api/app/live/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1105,
+      "git_blob": "a4704dc499c8ff5dbeb3ce64d45216c6fcffb52b",
+      "path": "services/api/app/live/__main__.py",
+      "sha256": "3ef65acab29019233f4633daaf7ec99e00cf67ca5519a201af02613374d40dcb"
+    },
+    {
+      "bytes": 51020,
+      "git_blob": "eba491db76f42fc57f06c805d456ff60d00e59fa",
+      "path": "services/api/app/live/app.py",
+      "sha256": "4c4e383499012e55a82b03833576467b0ce4770dbcaee620d2539d258238fbba"
+    },
+    {
+      "bytes": 9894,
+      "git_blob": "d3996d70a6e96a727441dc56859446c867f8236d",
+      "path": "services/api/app/live/auth.py",
+      "sha256": "e00b0d113cb1977dc81fec5cf4e3729f3b0b26e79eb2da56ac1803fe3d11258d"
+    },
+    {
+      "bytes": 10300,
+      "git_blob": "5c0e3c9ca7197dbcce7e697e6d7c4532b40a1cff",
+      "path": "services/api/app/live/config.py",
+      "sha256": "e01e4cfbc526f61607f40f43d12da79397ab78a35d9bae44e6b0d6c65f3790fb"
+    },
+    {
+      "bytes": 12082,
+      "git_blob": "b6340d0adc7262c7d112c827de4a046cac4ca278",
+      "path": "services/api/app/live/dsl.py",
+      "sha256": "2a75f766017703b1e728629f99f3dcd2e52c97ebfd6bb378fe227f4d6096b26a"
+    },
+    {
+      "bytes": 36703,
+      "git_blob": "096d567336cfb5e5fbb46904a17abfcef0144f06",
+      "path": "services/api/app/live/planner.py",
+      "sha256": "56921f5515c83cc22d24bdf0c87833b0ec43d518e17a5182c7df424adca04539"
+    },
+    {
+      "bytes": 4644,
+      "git_blob": "8650257ad69a93b63401bc9e99be9533efd08a97",
+      "path": "services/api/app/live/planner_api_worker.py",
+      "sha256": "d14cf6da4a7aa51881020c5eee3f8a5a4ac88cf8dec02032a48e6a560bae99a3"
+    },
+    {
+      "bytes": 14081,
+      "git_blob": "4032c66ced3d10b61787fbc352b620f3629f9366",
+      "path": "services/api/app/live/rooms.py",
+      "sha256": "7bb168a6ffead2271c578422e3b0845b659fe27f5d3835e6a935323e6b26e619"
+    },
+    {
+      "bytes": 16437,
+      "git_blob": "e652824ee72b9eb4dd789b5e2d4ea9f57dbe1d75",
+      "path": "services/api/app/live/scene.py",
+      "sha256": "47dbecb65a36d4641ac6f6d3338a8bd33f4cd7e00a2688be47dfa6d7e01f314d"
+    },
+    {
+      "bytes": 5343,
+      "git_blob": "161f7eaf5f4d60f74eced5c2c9d5f05207520acb",
+      "path": "services/api/app/live/scene_api_worker.py",
+      "sha256": "57d430734d5d05a95e12d1a80670cbde74027ac86df2e345cd8dfe943c999cb1"
+    },
+    {
+      "bytes": 13173,
+      "git_blob": "cf441883d16dcffaf2659e182fdcfd61b70870a0",
+      "path": "services/api/app/live/static/argus-logo.jpg",
+      "sha256": "e0b0b39b9db6acba70532cf12962db5b00d01d8b9c560af5a67caa7f932a107b"
+    },
+    {
+      "bytes": 8250,
+      "git_blob": "5c1b388ba2fe580be70cb4d61e32fce69a2834ed",
+      "path": "services/api/app/live/static/camera.html",
+      "sha256": "e4da43e170d90074ef4427edf1dad784a5093420a62e2aeaac94f7e21f643031"
+    },
+    {
+      "bytes": 1887,
+      "git_blob": "bae261fef3c1f60bd51722c1e59b191fe3940b49",
+      "path": "services/api/app/live/static/common.js",
+      "sha256": "069d9496f6ccb4303771c5f613caeb1fe9063da0ef233b4b6b0aaea15cbc60c7"
+    },
+    {
+      "bytes": 5272,
+      "git_blob": "8f50afeedf07dd0578bb61d3e195a2c9f77b9d6d",
+      "path": "services/api/app/live/static/demo.html",
+      "sha256": "2550770698a90908c2ba1dccdbeb2b89d9f96a971e4bcb60ded5c9cdccc25b75"
+    },
+    {
+      "bytes": 14992,
+      "git_blob": "a0378b2358b97969a5b79cabd0d2d5826d1fbc14",
+      "path": "services/api/app/live/static/demo.js",
+      "sha256": "818497ec66492931d4469f423bbcc61568c157f6f77f294c7c462ad1867ee042"
+    },
+    {
+      "bytes": 23983,
+      "git_blob": "6130b39a6ea3c0202359a9a4bd649f116aff3974",
+      "path": "services/api/app/live/static/judges.html",
+      "sha256": "871a9ea02963988bff34181324a9750e014435d469d26aaf88ac86365866fec0"
+    },
+    {
+      "bytes": 2285,
+      "git_blob": "b550f579e082fbeefe89d54bad986cd49f8dd2e9",
+      "path": "services/api/app/live/static/landing.html",
+      "sha256": "903aa12fc9e94ad4b9c14be11e760cb187b28d6fa09e82a6eabda32214cda82f"
+    },
+    {
+      "bytes": 4313,
+      "git_blob": "067677865194b3686f6cf6c046203411cd0b5b0b",
+      "path": "services/api/app/live/static/style.css",
+      "sha256": "d2d03f5b9116fd21138950e58542606705c2d115dff70cb8e3854a98fd96b342"
+    },
+    {
+      "bytes": 10594,
+      "git_blob": "ce9d70b305224b826f0724ed26d4f3fb3fcab6a8",
+      "path": "services/api/app/live/static/upload.html",
+      "sha256": "70dc401e3be84f934458d0ae84eb39dd9ff2a4784e0e8cf7aae2f3fcfd109a06"
+    },
+    {
+      "bytes": 12417,
+      "git_blob": "84dc15fa6ac0048a69acaee3b669092c98840962",
+      "path": "services/api/app/live/teacher.py",
+      "sha256": "60f2afead0004f8d64c1c9f556a9bd77e4702766e01f7d59f45fb79127221d52"
+    },
+    {
+      "bytes": 31972,
+      "git_blob": "90100da587f73486b167fffefec68f5d5aee11f4",
+      "path": "services/api/app/live/video.py",
+      "sha256": "a267991297af2ecae57b6974ef11b041299ebc1ee47358effc2f73eb0f4ec1c3"
+    },
+    {
+      "bytes": 15674,
+      "git_blob": "68a02ca8a55729c11cb9b5b6303b3a997137ef60",
+      "path": "services/api/app/live/worker.py",
+      "sha256": "79a5e98be91921ed5788f4c7301a95fdae7ab80d4798d44964bf3d9b28059426"
+    },
+    {
+      "bytes": 16372,
+      "git_blob": "312f2c96147146b254b3353447776c1b38adfd8c",
+      "path": "services/api/app/main.py",
+      "sha256": "a09b17076a3c5d698d48814f164c83e69754eed10e920b2aa90b5b935f2971fe"
+    },
+    {
+      "bytes": 26214,
+      "git_blob": "f47d49903ba9d894aa8ec644a9eb8803af1f0b0a",
+      "path": "services/api/app/nl_compiler.py",
+      "sha256": "9bdc024343b7af9635d99f0309d470b3920d06e18bfea7c8036f28bcf85f5265"
+    },
+    {
+      "bytes": 27118,
+      "git_blob": "e4f64a87e4066d2bf3821c25f8e7f40e700571be",
+      "path": "services/api/app/pipeline.py",
+      "sha256": "6ab03384f0164dfa40c2a822e4b15075818ba1849ab061fbc8eb4a6ea2548243"
+    },
+    {
+      "bytes": 7219,
+      "git_blob": "1037f065bf2ea9ece9ee49bb6e4c6cd38c7c835e",
+      "path": "services/api/app/schemas.py",
+      "sha256": "98ae095a838e5d97e364f4c6f0d9634587bbd5cfa392260d129062f757d9d756"
+    },
+    {
+      "bytes": 26911,
+      "git_blob": "e2f1d2e4d97f4ceecf6e6f8554092e1cae0d2c5a",
+      "path": "services/api/app/teacher.py",
+      "sha256": "2e5d67ed45227c81b3351b1b6812263379d2eda312dd6e27c4a52d78dd168c63"
+    },
+    {
+      "bytes": 18313,
+      "git_blob": "10c2c6d7376e58d446a12217ba1c9977844ffbb0",
+      "path": "services/api/app/vlm_router.py",
+      "sha256": "38dbe5803994bec876648d72fad5141270933a38aba75188b5ccd1f67714b39c"
+    },
+    {
+      "bytes": 272,
+      "git_blob": "084d3bb924f49fbbeef3d3cc7c31dbd93859f662",
+      "path": "services/api/requirements.txt",
+      "sha256": "983f2838cc6ef2ed8733dbfc0618af34fd4de21be60dd2fd820cc9d51d724a51"
+    },
+    {
+      "bytes": 390,
+      "git_blob": "beec3e3071591a2eaa4cd31201b908d2f0ddef9e",
+      "path": "tests/conftest.py",
+      "sha256": "ff8cfd8dfae078b69c0adae476c328cc8f10b6d4f037828f6fd077320ba832cf"
+    },
+    {
+      "bytes": 0,
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "path": "tests/fixtures/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 13656,
+      "git_blob": "18f02af46ef67739da2f18d904768b62fd2289c0",
+      "path": "tests/frontend/argus_single_visitor.cjs",
+      "sha256": "93f615f6d81c7d9a625e692ab0a355e3979323a0ec007294cf156dc4ae413464"
+    },
+    {
+      "bytes": 20018,
+      "git_blob": "8a1bb8f0a8d8a4aabdaa0c32bb5e505c83261e11",
+      "path": "tests/frontend/owner_final_video_contract.cjs",
+      "sha256": "9e5624bbf3f69975e48e4d8e541ab43c64850bd386a81996e79f861cc441a855"
+    },
+    {
+      "bytes": 2909,
+      "git_blob": "8bb14d069cdfa031846fa277c8240cc1264954e4",
+      "path": "tests/frontend/owner_video_catalog.cjs",
+      "sha256": "633d734f04cf099cb515f6f94b562bd59eeef1c942b4bc744018bf1d72ee5b97"
+    },
+    {
+      "bytes": 0,
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "path": "tests/integration/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 7259,
+      "git_blob": "5ba2ac61ee6ca1c2e60929bdf3e0f92a28e5ceba",
+      "path": "tests/integration/test_api_flow.py",
+      "sha256": "8a4f1fef4696af2146afaeb3d9fbffc922bd67b48870a693aaab73fdfa200375"
+    },
+    {
+      "bytes": 10405,
+      "git_blob": "142253334aab5e114ed5518e915f19aa8f331a88",
+      "path": "tests/integration/test_demo_safe.py",
+      "sha256": "055709e6361000ba40ce9b89f421f3530b2fab4f94ec1f7325f6bc6fb2139bfb"
+    },
+    {
+      "bytes": 21034,
+      "git_blob": "67db008686c15f8664c7512d32431e4e8a26b984",
+      "path": "tests/integration/test_m1_fixes.py",
+      "sha256": "35781b7aad1d03dd3b48e07021b0c2f5b537f5373a2e398bbd68687117f1e4bd"
+    },
+    {
+      "bytes": 22949,
+      "git_blob": "94bd1cc988d6c0dc68cb716465464debdf620b70",
+      "path": "tests/integration/test_m2_visual.py",
+      "sha256": "56f46eab6210de6edbbb528d24dcb0642f9deec04e77ed6a3d39b23bc22a54c7"
+    },
+    {
+      "bytes": 4692,
+      "git_blob": "4af41be77a4c3e59e67fe39d63c20df457916ed0",
+      "path": "tests/live/conftest.py",
+      "sha256": "b2d924e4f905b8234ec25eae350bf9bf6dd2472ea29678dfe0e73b0f419bfefd"
+    },
+    {
+      "bytes": 26685,
+      "git_blob": "2f109141759f0ab158588cfefbb46bb8e9077b4f",
+      "path": "tests/live/test_acceptance.py",
+      "sha256": "3cebbe11b5ba4614759afea86c0d433044fcee77ba0a287c81bf644326218fa1"
+    },
+    {
+      "bytes": 7966,
+      "git_blob": "f3233dccc07e3cb13227fc9fb3823e54783f09d3",
+      "path": "tests/live/test_demo_bootstrap.py",
+      "sha256": "2affad8983444889ea6126d5cb686ec9279eef167b690f4c6892a488c81730ea"
+    },
+    {
+      "bytes": 4731,
+      "git_blob": "aa07d06b87fd97b3503795049aca353a33b00ca7",
+      "path": "tests/live/test_live_auth.py",
+      "sha256": "c3423ef71f688ccb7ec86e0eb83cc795e0cbe9e7f8fe02e62fae73503b0b1544"
+    },
+    {
+      "bytes": 8001,
+      "git_blob": "4d329c06a455e552693e83af02ace8cb2646ff0d",
+      "path": "tests/live/test_live_frames.py",
+      "sha256": "de52da4d2941a7806ca909bc5b1663a1ba262873465a458cbec7ccba21b1dc6c"
+    },
+    {
+      "bytes": 10313,
+      "git_blob": "f9f71debec9d47392bc063b2d4818b080543aa0f",
+      "path": "tests/live/test_live_hardening.py",
+      "sha256": "3b1464cf4031b47a049b00c84a91fdd697efb20955139f7fe74efb15a8b6ff6e"
+    },
+    {
+      "bytes": 5566,
+      "git_blob": "f8958f7a47f53638fb84e8e08ce727b4bfab9e23",
+      "path": "tests/live/test_live_planner.py",
+      "sha256": "00c415321395ec440ce3b4439b5a8e3669ca337b2eab88e2c62b7d5a92411878"
+    },
+    {
+      "bytes": 10718,
+      "git_blob": "094d480a2934d90cb8c2d419ebeb23eb4f10fbc3",
+      "path": "tests/live/test_live_semantic.py",
+      "sha256": "06a27f646ca7effa6ecec59e736e8027ef97cf729ff046b64893d344b4df722f"
+    },
+    {
+      "bytes": 1865,
+      "git_blob": "c6c466c172b2207419e85d61064bf3009d9d2451",
+      "path": "tests/live/test_live_teacher.py",
+      "sha256": "e2de91d3e8273ef378b671e1ecc5b42939a10d8c56f6c8673b83ea52bfe36579"
+    },
+    {
+      "bytes": 11829,
+      "git_blob": "92473cd23d3268cbb6adfe2556773e97efad4919",
+      "path": "tests/live/test_openai_planner_provider.py",
+      "sha256": "e2a883904406cd8dff164b83ba49793b5b4325028760174034bbbb1cc53ea0e7"
+    },
+    {
+      "bytes": 4037,
+      "git_blob": "37343cef60e0f0d6d3198e1f85d7495c764bf7b7",
+      "path": "tests/live/test_owner_approval_source.py",
+      "sha256": "800231b2b5ddfac47c300bfbd2069e11bad59f370011d999a590f548223cc125"
+    },
+    {
+      "bytes": 3435,
+      "git_blob": "d7fe5902e6164c9906f1eff1aa41b47f8a7fd7b7",
+      "path": "tests/live/test_owner_final_complete_decode.py",
+      "sha256": "71e0c4c99c63a8af376aa77ea91c0097d7b957747563ba3efb56a0d5eb4f536b"
+    },
+    {
+      "bytes": 1717,
+      "git_blob": "7c001b49cdca413c0de1110da0b9e423c48e8c0a",
+      "path": "tests/live/test_owner_final_planner_fidelity.py",
+      "sha256": "57a35ab8d52b59ac773cdc6115b9b8499f66dcf300eebac392efb4070671079a"
+    },
+    {
+      "bytes": 2486,
+      "git_blob": "4cc16b1cbc105e2ec9af4c42662364c4ba82f26b",
+      "path": "tests/live/test_owner_final_scene_surface.py",
+      "sha256": "7313e3a611992d7dc9238b9fc1bd6412dbbdec71048d44829993e6e024a2e1f2"
+    },
+    {
+      "bytes": 13506,
+      "git_blob": "1e9c1f13b14f1f809ffdc4f7b4e1fa0d68d1a9d7",
+      "path": "tests/live/test_owner_final_security.py",
+      "sha256": "ffd9b30eaeb8571f8963269704851d2d1072077aa386016af3ff0290e31d76d2"
+    },
+    {
+      "bytes": 15815,
+      "git_blob": "7966ac412a661b5eb5c3925662094c5079757ea6",
+      "path": "tests/live/test_owner_final_video_lifecycle.py",
+      "sha256": "007db45ffb8d2df5b95d336c8ea938b5de4f5605dc6efbbd62cb0abc50534bd8"
+    },
+    {
+      "bytes": 7389,
+      "git_blob": "c332acea7e9e13dc3fffeeadfc6292114d09c9e8",
+      "path": "tests/live/test_owner_strict_command_grammar.py",
+      "sha256": "294a097e122ae9fe21528ff1af8b1a00acdd5269e4a3d191a442e5bd5c452b0b"
+    },
+    {
+      "bytes": 4115,
+      "git_blob": "63f395a3af740328a766f6630e9f28503e123889",
+      "path": "tests/live/test_owner_upload_admission.py",
+      "sha256": "2a4c6519d0c65af2f74863ff9326db45287ce0989635cc21210c993a934b76d3"
+    },
+    {
+      "bytes": 5403,
+      "git_blob": "08175ed5aa29bfe6308bf2eef25c7f374c63a2d8",
+      "path": "tests/live/test_owner_video_catalog.py",
+      "sha256": "656f35de398f847dc24d231352155daabb20f0bd4a4829a16dd991ef52c8d6b9"
+    },
+    {
+      "bytes": 3063,
+      "git_blob": "01c7425045609a5b5cbd3c470730fcb2d8fc9174",
+      "path": "tests/live/test_planner_transition_fidelity.py",
+      "sha256": "0ae7d1c923987c30dd4851131faedd3b1675154e12a3efc1e90f8d5de004bfad"
+    },
+    {
+      "bytes": 2149,
+      "git_blob": "4d935dae5cb6ce28fec384d1c9a701e93259eefd",
+      "path": "tests/live/test_quick_runtime.py",
+      "sha256": "35b4675b97434e88f6b9a0dc70aa0e6dab75278335d7d360bbb4695a5b3b06fc"
+    },
+    {
+      "bytes": 12662,
+      "git_blob": "26597a361af4eaf01bc7548254f4c66ced71782d",
+      "path": "tests/live/test_scene_understanding.py",
+      "sha256": "14e83cfacc63a22056cc8e51ee7d0eb0fdc8cdc5ff48f0b15881141c020886a4"
+    },
+    {
+      "bytes": 9703,
+      "git_blob": "1f185eb06b9a10569cd4029747817b74ea1082a4",
+      "path": "tests/live/test_teacher_tcp.py",
+      "sha256": "333b61de179ecceb880f8a808e9767d978564ce5b8659cf74e64dd83d6749468"
+    },
+    {
+      "bytes": 6259,
+      "git_blob": "64cf6df77f57e8fd7b36cadb3f24bb78b3f89b45",
+      "path": "tests/live/test_video_pipeline.py",
+      "sha256": "8ebd9f46d993bea6d6ac5f5e0071ec7924386be097c0b2c4b8df07ffaa40352d"
+    },
+    {
+      "bytes": 13935,
+      "git_blob": "b36c921bf1c83aedb90c0bf7834ea54639d97c51",
+      "path": "tests/orchestrator/test_controller.py",
+      "sha256": "7d75b07c1895ef9ec19567f319a0c9dceab89d998122b194d41e01846784b303"
+    },
+    {
+      "bytes": 0,
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "path": "tests/unit/.gitkeep",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1806,
+      "git_blob": "4ff3df3f53811f50dd2fe77b5418e62a5d0e3945",
+      "path": "tests/unit/test_config_demo_safe.py",
+      "sha256": "9eb036beb54aa700b037addb61a426411257ef0c7abd0f02b08373be660c5909"
+    },
+    {
+      "bytes": 2000,
+      "git_blob": "5393c0b56b9fe1a4826cc691923634cc3b154f0d",
+      "path": "tests/unit/test_dsl.py",
+      "sha256": "9414009c02af079f74af995296caf65a1d7cd89e1d67fa766c8fbb202d9c086a"
+    },
+    {
+      "bytes": 5635,
+      "git_blob": "6f49e02f9026bbad9705915bb385a0010e10cc91",
+      "path": "tests/unit/test_events.py",
+      "sha256": "770f895e811d3940bcb306af1c0db329ab79fc4a0ef32977700409e1b97eb061"
+    },
+    {
+      "bytes": 10854,
+      "git_blob": "8deec04ee824ec19b336fdfab30f3edbea34a43c",
+      "path": "tests/unit/test_nl_compiler.py",
+      "sha256": "91a918a0f0bbdeee4ee9fdbae754872c32c614f78840366eab41d0503a289cf9"
+    },
+    {
+      "bytes": 11466,
+      "git_blob": "fc6ac81787fef0415efb1648657f7dddbb1d8d94",
+      "path": "tests/unit/test_teacher.py",
+      "sha256": "8f8f26c251fc076c110c6d16499b6a7a3a6fd54f1945ece281b844fd1349f631"
+    },
+    {
+      "bytes": 6329,
+      "git_blob": "a5dfc5942ff0b69dc2318978bfb8fc78aa63c61f",
+      "path": "tests/unit/test_transport.py",
+      "sha256": "209b1d9b603393245f91a95d094eb1a2eb8faf17fdf68142a7575c239c1d9c42"
+    },
+    {
+      "bytes": 12315,
+      "git_blob": "e432e9709625adaa785bc480d7cce308b4c9d8eb",
+      "path": "tests/unit/test_vlm_router.py",
+      "sha256": "28dba73e8607dcfe9bdf6e54e525bd6c7310c98e4945571eb0eefaa34b4f41f7"
+    },
+    {
+      "bytes": 3087,
+      "git_blob": "ffc8ad4a286f3854484619d66b6aa961ae0e4040",
+      "path": "tests/unit/test_webhook_auth.py",
+      "sha256": "c3724df0db955c6dee0ee3ffc09d86a6c17be6714f47377418116d3da86a493d"
+    },
+    {
+      "bytes": 1514,
+      "git_blob": "ee8d65f708dfe5d7d5f7332cb420c2d7bc38603d",
+      "path": "tests/unit/test_zones.py",
+      "sha256": "4c59013941889e5ef296fef1790c1b217a4c8b7c3d18af94d45c7a7ea3d28687"
+    }
+  ],
+  "known_secret_inputs_scanned": 1,
+  "required_public_assets": [
+    {
+      "bytes": 13173,
+      "path": "services/api/app/live/static/argus-logo.jpg",
+      "reason": "owner-provided public branding asset; all other binary media remain excluded",
+      "sha256": "e0b0b39b9db6acba70532cf12962db5b00d01d8b9c560af5a67caa7f932a107b"
+    }
+  ],
+  "safe_required_scaffold": [
+    ".agents/CONTRIBUTOR_LICENSE_CONSENT.md",
+    ".agents/HANDOFF.md",
+    ".agents/PROTOCOL.md",
+    ".agents/STATE.md",
+    ".agents/reviews/M1.md",
+    ".agents/reviews/M2.md",
+    ".agents/reviews/M3.md",
+    ".agents/reviews/M4.md"
+  ],
+  "source_commit": "a0eb8f36d8e7f5feb0f61a7f3b7529fc15058533",
+  "source_repository": "new snapshot repository; private origin/history excluded",
+  "ui_patch_verification": {
+    "backend_and_detector_unchanged": true,
+    "base_e2e": "EXECUTED_8_CASES_ON_F9; not repeated on UI patch",
+    "base_source_commit": "f9d74f024d87a56ae66263dc1d9244a1049d9dc8",
+    "changed_paths": [
+      "README.md",
+      "services/api/app/live/static/demo.html",
+      "services/api/app/live/static/demo.js",
+      "tests/frontend/argus_single_visitor.cjs"
+    ],
+    "fresh_independent_review": "OWNER_WAIVED",
+    "owner_requested_post_freeze_ui_docs_patch": true,
+    "ui_test_receipt": {
+      "base_frozen_commit": "f9d74f024d87a56ae66263dc1d9244a1049d9dc8",
+      "browser_test_executed": false,
+      "checks": [
+        {
+          "command": "node --check services/api/app/live/static/demo.js",
+          "exit_code": 0
+        },
+        {
+          "command": "node tests/frontend/argus_single_visitor.cjs",
+          "exit_code": 0,
+          "method": "simulated DOM and deferred HTTP responses; production JS executed",
+          "passed": 24
+        },
+        {
+          "command": "git diff --check",
+          "exit_code": 0
+        },
+        {
+          "blocks": 6,
+          "command": "bash -n on six README shell blocks",
+          "exit_code": 0
+        }
+      ],
+      "deployment_executed": false,
+      "final_checks_evidence": "Agent actual final execution report: node syntax PASS, 24/24 frontend controls PASS, six README shell blocks bash syntax PASS, git diff --check PASS",
+      "frozen_f9_checkout_modified": false,
+      "independent_review_executed": false,
+      "isolated_branch": "ux/argus-planner-loading",
+      "modified_files": [
+        "README.md",
+        "services/api/app/live/static/demo.html",
+        "services/api/app/live/static/demo.js",
+        "tests/frontend/argus_single_visitor.cjs"
+      ],
+      "owner_requested_after_freeze": true,
+      "patch_commit": "a0eb8f36d8e7f5feb0f61a7f3b7529fc15058533",
+      "prior_source_release_rewritten": false,
+      "provider_calls": 0,
+      "publication_executed": false,
+      "root_recorded_epoch": 1791704876.3904207,
+      "source_offer_tag": "hackathon-2026-ui1",
+      "timestamp_utc": "2026-10-11T07:45:17.880847+00:00"
+    }
+  }
+}

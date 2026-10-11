@@ -1,0 +1,14 @@
+.git
+.agents
+.env
+.env.*
+!.env.example
+**/.venv
+**/node_modules
+**/.next
+**/__pycache__
+data
+models
+*.pt
+*.log
+docs/presentation

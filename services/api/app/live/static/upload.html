@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Argus — Upload Video</title>
+<link rel="icon" type="image/jpeg" href="/static/argus-logo.jpg" />
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<div class="topbar">
+  <img src="/static/argus-logo.jpg" alt="Argus logo" width="38" height="48" style="object-fit:contain;border-radius:5px" />
+  <h1>Argus</h1>
+  <span class="tag">Operator · pre-recorded video inference</span>
+  <span class="spacer"></span>
+  <a href="/" class="pill muted">← home</a>
+</div>
+<div class="wrap">
+  <div id="banner" class="banner hidden"></div>
+
+  <div class="card" id="authCard">
+    <h2>Operator sign-in</h2>
+    <p class="muted">Enter the demo PIN to create a private room. You will receive a one-time
+      join code to share with the judge.</p>
+    <label>Demo PIN <input id="pin" type="password" autocomplete="off" /></label>
+    <button id="signin" class="ok">Sign in &amp; create room</button>
+  </div>
+
+  <div class="card hidden" id="main">
+    <h2>Private room</h2>
+    <p class="muted">Share this one-time join code with the judge (it is never shown in any URL):</p>
+    <p><code class="inline" id="joinCode" style="font-size:1.2em"></code></p>
+
+    <h3>Select a prepared input</h3>
+    <p class="muted">Owner-provided recorded videos. Selecting an input validates its actual video;
+      visual interpretation, detections and events depend on validated inference and the approved task.</p>
+    <select id="catalogInput" disabled><option value="">Prepared inputs unavailable</option></select>
+    <button id="selectInput" disabled>Use selected video</button>
+    <h3>Upload a video</h3>
+    <p class="muted">Supported: a single MP4 of a service bay or road scene. Film only consenting
+      participants. The clip is bounded (size, duration, resolution) and validated before any
+      processing; it is stored privately and deleted when the room closes.</p>
+    <input id="file" type="file" accept="video/mp4,video/*" />
+    <button id="upload" class="ok">Upload</button>
+    <div id="videoInfo" class="muted" style="margin-top:8px"></div>
+    <progress id="prog" class="hidden" max="100" value="0" style="width:100%"></progress>
+
+    <h3 style="margin-top:18px">Processing</h3>
+    <p class="muted">The judge approves a task; processing then runs here on the source video clock.
+      A task being enabled does not mean a job is running — the status below is the actual job state.</p>
+    <div id="jobInfo" class="muted">idle</div>
+    <img id="feed" class="feed" alt="annotated frame" style="max-width:100%;margin-top:10px;border-radius:8px" />
+    <details style="margin-top:8px">
+      <summary class="muted">Play / replay the uploaded source video</summary>
+      <video id="sourceVideo" controls preload="none"
+             style="width:100%;margin-top:8px;border-radius:8px"></video>
+    </details>
+  </div>
+</div>
+
+<script src="/static/common.js"></script>
+<script>
+let roomId=null, pollTimer=null, sourceVideoRoom=null;
+let renderedTaskVersion=-1, pollGeneration=0, pollSequence=0, lastAppliedPoll=0;
+
+// A revoked/expired operator session (401/403) must stop the stale running display
+// and request sign-in rather than silently retaining old frames (LIVE-VIDEO-009).
+function isAuthError(e){
+  return /\b(401|403)\b|auth|session|sign ?in|expired|forbidden|unauthor|credential|not authenticated/i
+    .test(String((e && e.message) || e || ""));
+}
+function requireLogin(msg){
+  if (pollTimer) clearInterval(pollTimer); pollTimer=null;
+  pollGeneration++; renderedTaskVersion=-1;
+  roomId=null; sourceVideoRoom=null;
+  const f=document.getElementById("feed"); if(f) f.src="";
+  const sv=document.getElementById("sourceVideo");
+  if(sv){ if(sv.pause) sv.pause(); sv.src=""; if(sv.removeAttribute) sv.removeAttribute("src"); if(sv.load) sv.load(); }
+  const job=document.getElementById("jobInfo"); if(job) job.textContent="idle";
+  document.getElementById("main").classList.add("hidden");
+  document.getElementById("authCard").classList.remove("hidden");
+  setBanner("banner","err",msg||"Session expired — please sign in again.");
+}
+
+document.getElementById("signin").onclick = async () => {
+  try {
+    await login("camera", document.getElementById("pin").value);
+    const r = await api("/api/live/rooms", { method:"POST" });
+    roomId = r.room_id;
+    document.getElementById("joinCode").textContent = r.join_code;
+    document.getElementById("authCard").classList.add("hidden");
+    document.getElementById("main").classList.remove("hidden");
+    setBanner("banner","info","Room created. Upload a video, then ask the judge to approve a task.");
+    startPolling();
+    loadCatalog();
+  } catch(e){ setBanner("banner","err",e.message); }
+};
+
+async function loadCatalog(){
+  const requestedRoom=roomId;
+  try {
+    const r=await api("/api/live/video-catalog");
+    if(roomId!==requestedRoom) return;
+    const select=document.getElementById("catalogInput"); select.textContent="";
+    for(const input of r.inputs || []){
+      const option=document.createElement("option"); option.value=input.id;
+      option.textContent=`${input.id} · ${input.label}`; select.appendChild(option);
+    }
+    select.disabled=!(r.inputs || []).length;
+    document.getElementById("selectInput").disabled=select.disabled;
+    if(select.disabled){ const option=document.createElement("option"); option.textContent="Prepared inputs unavailable"; select.appendChild(option); }
+  } catch(e){ if(isAuthError(e)) requireLogin(); else setBanner("banner","err",e.message); }
+}
+
+function showValidatedSource(r){
+  pollGeneration++;
+  if(Number.isInteger(r.task_version)) renderedTaskVersion=Math.max(renderedTaskVersion,r.task_version);
+  const m=r.meta;
+  document.getElementById("videoInfo").textContent=
+    `Validated: ${m.w}x${m.h}, ${m.fps} fps, ${m.frame_count} frames, ${m.duration_seconds}s · sha256 ${r.sha256.slice(0,12)}…`;
+  updateSourceVideo({sha256:r.sha256}); document.getElementById("feed").src="";
+  setBanner("banner","info","Video validated. Ask the judge to approve a task to start processing.");
+}
+
+document.getElementById("selectInput").onclick=async()=>{
+  const requestedRoom=roomId, button=document.getElementById("selectInput");
+  button.disabled=true;
+  try {
+    const r=await api(`/api/live/rooms/${requestedRoom}/video/select`,{
+      method:"POST",body:{id:document.getElementById("catalogInput").value}});
+    if(roomId===requestedRoom) showValidatedSource(r);
+  } catch(e){ if(isAuthError(e)) requireLogin(); else setBanner("banner","err",e.message); }
+  finally { if(roomId===requestedRoom) button.disabled=false; }
+};
+
+document.getElementById("upload").onclick = async () => {
+  const f = document.getElementById("file").files[0];
+  if (!f) { setBanner("banner","err","Choose a video file first."); return; }
+  const prog = document.getElementById("prog");
+  prog.classList.remove("hidden"); prog.value = 0;
+  try {
+    const xhr = new XMLHttpRequest();
+    const requestedRoom=roomId;
+    xhr.open("POST", `/api/live/rooms/${requestedRoom}/video`);
+    xhr.setRequestHeader("X-CSRF-Token", getCookie(CSRF_COOKIE));
+    xhr.withCredentials = true;
+    xhr.upload.onprogress = (e) => { if (e.lengthComputable) prog.value = (e.loaded/e.total)*100; };
+    const done = new Promise((res,rej)=>{
+      xhr.onload = () => xhr.status<300 ? res(JSON.parse(xhr.responseText||"{}"))
+                                        : rej(new Error((JSON.parse(xhr.responseText||"{}").detail)||("upload failed "+xhr.status)));
+      xhr.onerror = () => rej(new Error("network error"));
+    });
+    xhr.send(f);
+    const r = await done;
+    if (roomId!==requestedRoom) return;
+    // An upload ACK replaces the source and invalidates pending old-source polls.
+    showValidatedSource(r);
+  } catch(e){ if(isAuthError(e)) requireLogin(); else setBanner("banner","err",e.message); }
+};
+
+function updateSourceVideo(v){
+  const sv=document.getElementById("sourceVideo");
+  const sourceKey=roomId && v.sha256 ? `${roomId}:${v.sha256}` : null;
+  if (sv && sourceKey!==sourceVideoRoom) {
+    if (sv.pause) sv.pause();
+    sv.src=sourceKey ? `/api/live/rooms/${roomId}/video/source?sha=${encodeURIComponent(v.sha256)}` : "";
+    sourceVideoRoom=sourceKey;
+    if (!sourceKey && sv.removeAttribute) sv.removeAttribute("src");
+    if (sv.load) sv.load();
+  }
+}
+
+function startPolling() {
+  const img = document.getElementById("feed");
+  if (pollTimer) clearInterval(pollTimer);
+  const tick = async () => {
+    if (!roomId) return;
+    const requestedRoom=roomId, generation=pollGeneration, sequence=++pollSequence;
+    try {
+      const s = await api(`/api/live/rooms/${requestedRoom}/state`);
+      if (roomId!==requestedRoom || generation!==pollGeneration || sequence<lastAppliedPoll) return;
+      if (Number.isInteger(s.task_version)) {
+        if (s.task_version<renderedTaskVersion) return;
+        renderedTaskVersion=s.task_version;
+      }
+      lastAppliedPoll=sequence;
+      const v = s.video || {};
+      const fps = (v.meta && v.meta.fps) ? v.meta.fps : null;
+      const total = v.job_total || (v.meta && v.meta.frame_count) || 0;
+      const proc = v.job_processed || 0;
+      let line = `status: ${v.job_status || "idle"} · ${proc}/${total} frames`;
+      if (fps) {
+        const elapsed = proc / fps;
+        const dur = total ? total / fps : (v.meta ? v.meta.duration_seconds : null);
+        line += ` · source t=${elapsed.toFixed(1)}s` + (dur != null ? ` / ${Number(dur).toFixed(1)}s` : "");
+      }
+      if (v.job_error) line += ` · error: ${v.job_error}`;
+      document.getElementById("jobInfo").textContent = line;
+      if (v.job_status === "running" || v.job_status === "done") {
+        img.src = `/api/live/rooms/${roomId}/frame?t=${Date.now()}`;
+      }
+      updateSourceVideo(v);
+      if (!v.sha256) img.src="";
+    } catch(e){
+      if (roomId!==requestedRoom || generation!==pollGeneration || sequence<lastAppliedPoll) return;
+      if (isAuthError(e)) requireLogin("Session expired — please sign in again.");
+      /* else transient: keep last */
+    }
+  };
+  tick(); pollTimer = setInterval(tick, 800);
+}
+</script>
+
+<footer class="muted" style="padding:16px">Copyright &copy; 2026 Argus contributors. Licensed under AGPL-3.0-only. <a href="https://github.com/samanwirst/visionflow-hackathon-2026-source/releases/download/hackathon-2026/visionflow-source.tar.gz">Get the Argus corresponding source</a>. <a href="https://www.gnu.org/licenses/agpl-3.0.html">License terms</a>.</footer>
+</body>
+</html>

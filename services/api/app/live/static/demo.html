@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Argus — Video Workspace</title>
+<link rel="icon" type="image/jpeg" href="/static/argus-logo.jpg" />
+<link rel="stylesheet" href="/static/style.css" />
+<style>
+.planning-spinner { display:inline-block; width:1em; height:1em; margin-right:8px;
+  vertical-align:-0.15em; border:2px solid currentColor; border-right-color:transparent;
+  border-radius:50%; animation:argus-planning-spin .8s linear infinite; }
+@keyframes argus-planning-spin { to { transform:rotate(360deg); } }
+@media (prefers-reduced-motion:reduce) { .planning-spinner { animation:none; } }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <img src="/static/argus-logo.jpg" alt="Argus logo" width="38" height="48" style="object-fit:contain;border-radius:5px" />
+  <h1>Argus</h1>
+  <span class="tag">Video workspace</span>
+  <span class="spacer"></span>
+  <span id="sessionStatus" class="pill muted">Preparing private workspace…</span>
+</div>
+<div class="wrap">
+  <div id="availability" class="banner info">Your video, prompts and workflows stay in your private workspace.</div>
+  <div id="banner" class="banner hidden"></div>
+  <div class="grid2">
+    <div class="card">
+      <h2>1 · Choose a video</h2>
+      <label for="inputVideo">Prepared footage</label>
+      <select id="inputVideo" disabled><option value="">Inputs unavailable</option></select>
+      <button id="selectVideo" disabled style="margin-top:10px">Open selected video</button>
+      <details style="margin-top:10px"><summary>Use a new video</summary>
+        <input id="juryVideo" type="file" accept="video/mp4" disabled />
+        <button id="uploadVideo" disabled style="margin-top:8px">Upload MP4</button>
+      </details>
+      <video id="sourceVideo" controls preload="none" style="margin-top:12px"></video>
+      <pre id="sourceIdentity" class="code">No source selected.</pre>
+    </div>
+    <div class="card">
+      <h2>2 · Understand the scene</h2>
+      <p class="muted">Inspect actual sampled images. Scene descriptions do not establish tracking, counting or actions over time.</p>
+      <label for="sceneQuestion">Question about visible content</label>
+      <input id="sceneQuestion" maxlength="1000" value="What objects and environment are visible in this video?" />
+      <button id="inspectScene" disabled style="margin-top:10px">Inspect sampled frames</button>
+      <pre id="sceneObservation" class="code" style="white-space:pre-wrap">No inspection executed.</pre>
+    </div>
+  </div>
+  <div class="card">
+    <h2>3 · Describe what to monitor</h2>
+    <p class="muted">Every requested condition must be implemented or rejected. No workflow runs before your approval.</p>
+    <textarea id="prompt" maxlength="2000" placeholder="Describe an entry, exit or dwell condition with an explicit region and duration."></textarea>
+    <button id="planTask" disabled style="margin-top:10px">Generate workflow</button>
+    <div id="planningStatus" class="banner info hidden" role="status" aria-live="polite" style="margin-top:12px"><span class="planning-spinner" aria-hidden="true"></span>Generating a validated workflow… This may take a few seconds. Video analysis starts only after your approval.</div>
+    <div id="draft" class="hidden" style="margin-top:14px">
+      <p class="muted">Exact validated JSON for approval:</p>
+      <pre id="draftJson" class="code"></pre>
+      <details>
+        <summary>Edit JSON</summary>
+        <textarea id="editJson" spellcheck="false" style="min-height:160px;font-family:monospace"></textarea>
+        <button id="validateTask" disabled style="margin-top:10px">Validate edited workflow</button>
+      </details>
+      <div class="row" style="margin-top:12px">
+        <button id="approveTask" class="ok" disabled>Approve this exact workflow</button>
+        <button id="discardTask" class="secondary">Discard</button>
+      </div>
+      <div id="draftIdentity" class="muted"></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>4 · Analysis and evidence</h2>
+    <div id="activeWorkflow" class="muted">No approved workflow.</div>
+    <div id="jobStatus" class="muted">No inference executed.</div>
+    <progress id="progress" max="100" value="0" style="width:100%"></progress>
+    <div class="row" style="margin-top:10px">
+      <button id="runVideo" disabled>Process approved video</button>
+      <button id="disableTask" class="danger" disabled>Disable workflow</button>
+      <button id="enableTask" disabled>Re-enable workflow</button>
+    </div>
+    <img id="processedFrame" class="feed hidden" alt="Actual annotated inference frame" style="margin-top:12px" />
+    <h3>Detected events and timestamped evidence</h3>
+    <div id="eventList" class="muted">No events.</div>
+    <h3>Local notifications</h3>
+    <div id="notificationList" class="muted">No notifications.</div>
+  </div>
+</div>
+<footer class="muted" style="padding:16px">Copyright &copy; 2026 Argus contributors. Licensed under AGPL-3.0-only. <a href="https://github.com/samanwirst/visionflow-hackathon-2026-source/releases/download/hackathon-2026-ui1/visionflow-source.tar.gz">Argus corresponding source</a>.</footer>
+<script src="/static/demo.js"></script>
+</body>
+</html>
