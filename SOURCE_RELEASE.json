@@ -50,5 +50,7 @@
     "final_checks_evidence": "Agent actual final execution report: node syntax PASS, 24/24 frontend controls PASS, six README shell blocks bash syntax PASS, git diff --check PASS"
   },
   "fresh_independent_review": "OWNER_WAIVED",
-  "private_history_included": false
+  "private_history_included": false,
+  "startup_documentation_original_commit": "4725486e757ce0571bd0e7c2b2fbeb3befbc74b2",
+  "startup_documentation_note": "README corrected to actual catalog environment/filename contract; runtime source is unchanged from a0eb8f3, original immutable source archive remains available."
 }

@@ -53,7 +53,23 @@ printf '%s  %s\n' 0ebbc80d4a7680d14987a577cd21342b65ecfd94632bd9a8da63ae6417644e
 The weight file retains its Ultralytics upstream license; it is not a model
 trained by this team. Preserve its notices and the accompanying upstream source.
 
-### 3. Configure private API access and start locally
+### 3. Prepare a private catalog, configure API access and start locally
+
+The current UI bootstrap requires **at least one valid, owner-authorized MP4**
+in its private catalog. Prepare one before launching; the actual environment
+variable and lookup filename used by this version are shown below:
+
+```sh
+mkdir -p private-demo-videos
+chmod 700 private-demo-videos
+cp /absolute/path/to/your-authorized-valid-clip.mp4 private-demo-videos/Camera1-960x540-cfr24.mp4
+```
+
+Use a supported constant-frame-rate MP4 within the decoder's size, duration and
+frame limits (at most 64 MiB, 120 seconds and 5,000 frames). The filename is a
+catalog lookup key; it does not bypass content validation. Uploaded videos are
+not source assets. After this catalog admits the workspace, **Upload MP4** can
+process a different supported input.
 
 Copy `.env.example` to `.env` and run `chmod 600 .env`. Configure your own
 `OPENAI_API_KEY` in that ignored server-only file. Do not paste credentials into
@@ -67,6 +83,7 @@ set -a
 . ./.env
 set +a
 export VISIONFLOW_DATA_DIR="$PWD/private-runtime"
+export VISIONFLOW_DEMO_VIDEO_DIR="$PWD/private-demo-videos"
 export DETECTOR_MODEL="$PWD/private-models/yolo11n.pt"
 export DETECTOR_DEVICE=cpu
 export VISIONFLOW_THREADS=2
@@ -96,11 +113,11 @@ errors and exhausted budgets return unavailable without fabricated results;
 there is no public subscription-CLI fallback. The shared, durable OpenAI attempt
 ledger lives in `VISIONFLOW_DATA_DIR` and caps planning plus scene requests.
 
-For an optional private Camera1–Camera5 catalog, set `VISIONFLOW_DEMO_VIDEO_DIR`
-to a directory containing owner-authorized, validated files named
-`Camera1-960x540-cfr24.mp4` through `Camera5-960x540-cfr24.mp4` **before starting**.
-These videos are not distributed as application source. Without this directory,
-use **Upload MP4** for a new supported input; do not invent missing catalog entries.
+To populate all five selections, add authorized, supported files named
+`Camera2-960x540-cfr24.mp4` through `Camera5-960x540-cfr24.mp4` to the same directory.
+At least one configured input is required: an empty or unset catalog leaves the
+current workspace unavailable, including its upload control. These private videos
+are not distributed as application source; never invent missing catalog entries.
 Scene inspection samples at most three real 512-pixel images and reports source
 and frame hashes, timestamps, model identity and token usage. Basic unfamiliar
 object descriptions do not establish precise box tracking, aisle blockage,
